@@ -1,6 +1,8 @@
 Perlimpinpin
 ============
 
+[![Build Status](https://travis-ci.org/Harenome/perlimpinpin.svg?branch=master)](https://travis-ci.org/Harenome/perlimpinpin)
+
 License
 -------
 Copyright © 2014 Harenome RAZANAJATO
