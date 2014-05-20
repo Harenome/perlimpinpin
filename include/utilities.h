@@ -14,6 +14,9 @@
 #include <stdbool.h>
 #include <math.h>
 
+/**
+ * \brief Epsilon par défaut pour les \c float.
+ */
 #define F_DEFAULT_EPSILON 1.0e-5
 
 /**

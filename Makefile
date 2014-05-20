@@ -38,7 +38,10 @@ libperlimpinpin.a: utilities.o vector.o polygon.o perlin.o mesh.o | lib_dir
 		ranlib $(PATH_LIB)/libperlimpinpin.a
 
 tests: main
-	@echo "TODO."
+		@echo "TODO."
+
+doc: clean_doc
+		@doxygen
 
 obj_dir:
 		@mkdir -p $(PATH_OBJ)
@@ -50,8 +53,13 @@ bin_dir:
 		@mkdir -p $(PATH_BIN)
 
 clean:
-		rm -rf $(PATH_BIN) $(PATH_OBJ) $(PATH_LIB)
+		@rm -rf $(PATH_BIN) $(PATH_OBJ) $(PATH_LIB)
+		@echo "Clean."
+
+cleandoc: clean_doc
+clean_doc:
+		@rm -rf $(PATH_DOC)
 
 cleanall: clean_all
-clean_all: clean
-		@echo "Clean."
+clean_all: clean clean_doc
+		@echo "Super clean."

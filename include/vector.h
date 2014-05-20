@@ -11,6 +11,7 @@
  * \todo v_decompose
  * \todo v_recompose
  * \todo v_ux_uy_from_uz
+ * \todo v_rotate
  */
 /* This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
@@ -40,6 +41,7 @@ typedef struct
 
 /**
  * \brief Point.
+ * Identique à vector. Facilite la comprehension des fonctions à partir des prototypes.
  */
 typedef vector point;
 
@@ -49,6 +51,7 @@ typedef vector point;
  * \param y y.
  * \param z z.
  * \return Vecteur (x, y, z).
+ * \relates vector
  */
 vector v_new (float x, float y, float z);
 
@@ -56,6 +59,7 @@ vector v_new (float x, float y, float z);
  * \brief Afficher un vecteur accompagné d'un message.
  * \param v Vecteur à afficher.
  * \param message Message.
+ * \relates vector
  */
 void v_print (vector v, const char * message);
 
@@ -64,6 +68,7 @@ void v_print (vector v, const char * message);
  * \param a Vecteur 1.
  * \param b Vecteur 2.
  * \return a + b.
+ * \relates vector
  */
 vector v_add (vector a, vector b);
 
@@ -72,6 +77,7 @@ vector v_add (vector a, vector b);
  * \param a Vecteur 1.
  * \param b Vecteur 2.
  * \return a - b.
+ * \relates vector
  */
 vector v_substract (vector a, vector b);
 
@@ -80,6 +86,7 @@ vector v_substract (vector a, vector b);
  * \param lambda Scalaire.
  * \param v Vecteur.
  * \return Vecteur (lambda * v.x, lambda * v.y, lambda * v.z).
+ * \relates vector
  */
 vector v_multiply (double lambda, vector v);
 
@@ -88,6 +95,7 @@ vector v_multiply (double lambda, vector v);
  * \param a Vecteur 1.
  * \param b Vecteur 2.
  * \return a ^ b.
+ * \relates vector
  */
 vector v_cross (vector a, vector b);
 
@@ -96,6 +104,7 @@ vector v_cross (vector a, vector b);
  * \param a Vecteur 1.
  * \param b Vecteur 2.
  * \return a . b.
+ * \relates vector
  */
 float v_dot (vector a, vector b);
 
@@ -103,6 +112,7 @@ float v_dot (vector a, vector b);
  * \brief Obtenir la norme d'un vecteur.
  * \param v Vecteur.
  * \return Norme.
+ * \relates vector
  */
 double v_length (vector v);
 
@@ -110,6 +120,7 @@ double v_length (vector v);
  * \brief Obtenir un vecteur unitaire de même direction qu'un autre vecteur.
  * \param v Vecteur.
  * \return Vecteur unitaire.
+ * \relates vector
  */
 vector v_unit (vector v);
 
@@ -120,6 +131,7 @@ vector v_unit (vector v);
  * \param b Point de la droite.
  * \retval true si \c m est à la droite de la droite (\c a, \c b).
  * \retval false sinon.
+ * \relates vector
  */
 bool v_is_on_the_right (point m, point a, point b);
 
@@ -131,6 +143,7 @@ bool v_is_on_the_right (point m, point a, point b);
  * \param d Extrémité du deuxième segment.
  * \retval true si les deux segments s'intersectent.
  * \retval false sinon.
+ * \relates vector
  */
 bool v_segments_intersect (point a, point b, point c, point d);
 
@@ -142,6 +155,7 @@ bool v_segments_intersect (point a, point b, point c, point d);
  * \param b Extrémité du segment.
  * \retval true si la demi-droite et le segment s'intersectent.
  * \retval false sinon.
+ * \relates vector
  */
 bool v_ray_intersects_segment (point m, vector u_ray, point a, point b);
 
@@ -150,6 +164,7 @@ bool v_ray_intersects_segment (point m, vector u_ray, point a, point b);
  * \param v Vecteur à faire tourner.
  * \param angle Angle.
  * \return Vecteur.
+ * \relates vector
  */
 vector v_turn_around_y (vector v, double angle);
 
@@ -158,6 +173,7 @@ vector v_turn_around_y (vector v, double angle);
  * \param v Vecteur à faire tourner.
  * \param angle Angle.
  * \return Vecteur.
+ * \relates vector
  */
 vector v_turn_around_z (vector v, double angle);
 
@@ -166,6 +182,7 @@ vector v_turn_around_z (vector v, double angle);
  * \param v Vecteur à projeter.
  * \param normal Vecteur normal au plan.
  * \return Vecteur.
+ * \relates vector
  */
 vector v_project_on_plane (vector v, vector normal);
 
@@ -174,6 +191,7 @@ vector v_project_on_plane (vector v, vector normal);
  * \param p Vecteur.
  * \param u Vecteur repère.
  * \return Coordonnée selon \c u de \c p.
+ * \relates vector
  */
 double v_decompose (vector p, vector u);
 
@@ -186,6 +204,7 @@ double v_decompose (vector p, vector u);
  * \param v \c v.
  * \param w \c w.
  * \return Vecteur.
+ * \relates vector
  */
 vector v_recompose (double x, double y, double z, vector u, vector v, vector w);
 
@@ -193,7 +212,19 @@ vector v_recompose (double x, double y, double z, vector u, vector v, vector w);
  * \param[in] u_z \c u_z.
  * \param[out] u_x \c u_x.
  * \param[out] u_y \c u_y.
+ * \relates vector
  */
 void v_ux_uy_from_uz (vector u_z, vector * u_x, vector * u_y);
+
+/**
+ * \brief Effectuer la rotation autour de \c centre et transformant \c a en \c b sur \c p.
+ * \param p Point à faire tourner.
+ * \param centre Centre de la rotation.
+ * \param a Départ de la rotation.
+ * \param b Fin de la rotation.
+ * \return Rotation.
+ * \relates vector
+ */
+vector v_rotate (point p, point centre, vector a, vector b);
 
 #endif // __VECTOR_H__

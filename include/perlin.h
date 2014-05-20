@@ -1,10 +1,9 @@
-
-/*=====================================================*\
-  Mercredi 29 mai 2013
-  Arash HABIBI
-  Perlin.h
-\*=====================================================*/
-
+/**
+ * \file perlin.h
+ * \brief Perlin.
+ * \author HABIBI Arash
+ * \date May the 29 2013
+ */
 #ifndef _PERLIN_H_
 #define _PERLIN_H_
 

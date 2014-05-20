@@ -1,10 +1,8 @@
 /**
  * \file vector.c
  * \brief Vector.
- * \author HABIBI Arash
  * \author RAZANAJATO RANAIVOARIVONY Harenome
- * \date September the 25th 2013 (HABIBI Arash)
- * \date 2014 (RAZANAJATO RANAIVOARIVONY Harenome)
+ * \date 2014
  * \copyright WTFPL version 2
  */
 /* This program is free software. It comes without any warranty, to
