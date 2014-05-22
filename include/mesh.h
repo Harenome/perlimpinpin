@@ -52,7 +52,15 @@ typedef struct
  * \brief Créer un nouveau quadrilatère.
  * \relates quad
  */
-quad q_new (point v1, point v2, point v3, point v4);
+quad q_new (point a, point b, point c, point d);
+
+/**
+ * \brief Afficher un quadrilatère.
+ * \param q Quadrilatère.
+ * \param message Message.
+ * \relates mesh
+ */
+void q_print (const quad * const q, const char * const message);
 
 /**
  * \brief Maillage.
@@ -77,7 +85,7 @@ mesh * m_new (void);
  * \param message Message.
  * \relates mesh
  */
-void m_print (const mesh * m, const char * message);
+void m_print (const mesh * const m, const char * const message);
 
 /**
  * \brief Ajouter un quadrilatère.
@@ -85,7 +93,7 @@ void m_print (const mesh * m, const char * message);
  * \param q Quadrilatère.
  * \relates mesh
  */
-void m_add_quad (mesh * m, quad q);
+void m_add_quad (mesh * const m, quad q);
 
 /**
  * \brief Ajouter une coupe.
@@ -94,7 +102,7 @@ void m_add_quad (mesh * m, quad q);
  * \param p2 Polygone.
  * \relates mesh
  */
-void m_add_slice (mesh * m, polygon * p1, polygon * p2);
+void m_add_slice (mesh * const m, polygon * const p1, polygon * const p2);
 
 /**
  * \brief Révolution.
@@ -103,7 +111,7 @@ void m_add_slice (mesh * m, polygon * p1, polygon * p2);
  * \param nb_slices Nombre de coupes.
  * \relates mesh
  */
-void m_revolution (mesh * m, polygon * p1, int nb_slices);
+void m_revolution (mesh * const m, polygon * const p1, int nb_slices);
 
 /**
  * \brief Extruder selon le bruit de Perlin.
@@ -112,13 +120,13 @@ void m_revolution (mesh * m, polygon * p1, int nb_slices);
  * \param nb_slices Nombre de coupes.
  * \relates mesh
  */
-void m_perlin_extrude (mesh * m, polygon * p, int nb_slices);
+void m_perlin_extrude (mesh * const m, polygon * const p, int nb_slices);
 
 /**
  * \brief Dessiner un maillage.
  * \param m Maillage.
  * \relates mesh
  */
-void m_draw (const mesh * m);
+void m_draw (const mesh * const m);
 
 #endif // _MESH_H_
