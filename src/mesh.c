@@ -29,6 +29,19 @@ void q_print (const quad * const q, const char * const message)
     #endif
 }
 
+void q_draw (const quad * const q)
+{
+    glBegin (GL_POLYGON);
+
+    for (int i = 0; i < 4; ++i)
+    {
+        vector v = q->_vertices[i];
+        glVertex3d (v.x, v.y, v.z);
+    }
+
+    glEnd ();
+}
+
 mesh * m_new (void)
 {
     mesh * const m = malloc (sizeof * m);
@@ -123,4 +136,10 @@ void m_perlin_extrude (mesh * const m, const polygon * const p, int nb_slices)
         m_add_slice (m, & a, & b);
         p_copy (& b, & a);
     }
+}
+
+void m_draw (const mesh * const m)
+{
+    for (int i = 0; i < m->_nb_quads; ++i)
+        q_draw (& m->_quads[i]);
 }

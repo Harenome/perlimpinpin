@@ -6,8 +6,6 @@
  * \date September the 25th 2013 (HABIBI Arash)
  * \date 2014 (RAZANAJATO RANAIVOARIVONY Harenome)
  * \copyright WTFPL version 2
- *
- * \todo m_draw
  */
 /* This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
@@ -51,9 +49,16 @@ quad q_new (point a, point b, point c, point d);
  * \brief Afficher un quadrilatère.
  * \param q Quadrilatère.
  * \param message Message.
- * \relates mesh
+ * \relates quad
  */
 void q_print (const quad * const q, const char * const message);
+
+/**
+ * \brief Dessiner un quadrilatère.
+ * \param q Quadrilatère
+ * \relates quad
+ */
+void q_draw (const quad * const q);
 
 /**
  * \brief Maillage.
