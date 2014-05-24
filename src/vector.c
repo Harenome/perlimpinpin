@@ -38,6 +38,10 @@ void v_print (vector v, const char * message)
     #endif
 }
 
+bool v_is_zero (vector v)
+{
+    return d_is_zero (v.x) && d_is_zero (v.y) && d_is_zero (v.z);
+}
 
 vector v_add (vector a, vector b)
 {
@@ -83,15 +87,6 @@ vector v_unit (vector v)
     return v_map_1_op (/ length, v);
 }
 
-static inline double _det_2 (double a_x, double a_y, double b_x, double b_y)
-{
-    /* Déterminant:
-     *  | a_x   b_x |
-     *  | a_y   b_y |
-     */
-    return a_x * b_y - a_y * b_x;
-}
-
 static inline double _det_3 (vector a, vector b, vector c)
 {
     /* Déterminant:
@@ -99,9 +94,9 @@ static inline double _det_3 (vector a, vector b, vector c)
      *  | a_y   b_y   c_y |
      *  | a_z   b_z   c_z |
      */
-    double det  = a.x * _det_2 (b.y, b.z, c.y, c.z);
-    det -= a.y * _det_2 (b.x, b.z, c.x, c.z);
-    det += a.z * _det_2 (b.x, b.y, c.x, c.y);
+    double det  = a.x * d_det (b.y, b.z, c.y, c.z);
+    det -= a.y * d_det (b.x, b.z, c.x, c.z);
+    det += a.z * d_det (b.x, b.y, c.x, c.y);
 
     return det;
 }
@@ -220,7 +215,7 @@ vector v_recompose (double x, double y, double z, vector u, vector v, vector w)
 static inline bool _v_col (vector a, vector b)
 {
     vector cross = v_cross (a, b);
-    return d_is_zero (cross.x) && d_is_zero (cross.y) && d_is_zero (cross.z);
+    return v_is_zero (cross);
 }
 
 void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y)

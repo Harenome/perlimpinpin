@@ -62,3 +62,13 @@ bool d_equals (double a, double b);
  * \return Carré.
  */
 double d_square (double d);
+
+/**
+ * \brief Obtenir le déterminant de (\c a, \c b) et (\c i, \c j).
+ * \param a \c a.
+ * \param b \c b.
+ * \param i \c i.
+ * \param j \c j.
+ * \return Déterminant (\c a * \c j - \c b * \c i).
+ */
+double d_det (double a, double b, double i, double j);
