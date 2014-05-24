@@ -11,7 +11,7 @@ PATH_INCLUDE = include
 FLAGS_CC_DEBUG = -Wall -g -D__ENABLE_DEBUG
 FLAGS_INCLUDE = -I$(PATH_INCLUDE) -I/usr/X11R6/include -IGL
 FLAGS_CC = $(FLAGS_INCLUDE) -std=c99 -pedantic -O0  $(FLAGS_CC_DEBUG)
-FLAGS_LIB = -L/usr/X11R6/lib -L$(PATH_LIB) -lglut -lGL -lGLU -lm -lperlimpinpin
+FLAGS_LIB = -L/usr/X11R6/lib -L$(PATH_LIB) -lglut -lGL -lGLU -lperlimpinpin -lm
 
 vpath %.h $(PATH_INCLUDE) $(PATH_TESTS)/include
 vpath %.c $(PATH_SRC) $(PATH_SRC)/src

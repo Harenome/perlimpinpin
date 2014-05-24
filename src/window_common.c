@@ -23,36 +23,12 @@ void window_common_init (void)
     p_init (& _polygon);
     m_init (& _mesh);
     p_close (& _polygon);
-
-    /* p_add_vertex (& _polygon, v_new (0.0, -0.5, 0.0)); */
-    /* p_add_vertex (& _polygon, v_new (1.0, 0.0, 0.0)); */
-    /* p_add_vertex (& _polygon, v_new (0.0, 0.5, 0.0)); */
-    /* p_add_vertex (& _polygon, v_new (0.5, 0.0, 0.0)); */
-    /* p_close (& _polygon); */
-    /* p_print (& _polygon, "Common polygon"); */
-    /* m_revolution (& _mesh, & _polygon, 100); */
-    /* m_perlin_extrude (& _mesh, & _polygon, 10); */
-    /* m_print (& _mesh, "Common mesh"); */
-}
-
-const polygon * const common_polygon (void)
-{
-    return & _polygon;
-}
-
-const mesh * const common_mesh (void)
-{
-    return & _mesh;
 }
 
 void common_polygon_add_vertex (point v)
 {
-    p_add_vertex (& _polygon, v);
-}
-
-void common_polygon_close (void)
-{
-    p_close (& _polygon);
+    if (! _extruded)
+        p_add_vertex (& _polygon, v);
 }
 
 void common_mesh_perlin_extrude (int slices)

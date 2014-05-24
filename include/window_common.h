@@ -26,11 +26,7 @@ static GLfloat p_light[4];
 
 void window_common_init (void);
 
-const polygon * const common_polygon (void);
-const mesh * const common_mesh (void);
-
 void common_polygon_add_vertex (point v);
-void common_polygon_close (void);
 void common_mesh_perlin_extrude (int slices);
 
 void draw_common_polygon (void);

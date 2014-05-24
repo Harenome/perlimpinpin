@@ -100,7 +100,6 @@ void display (void)
 
 void keyboard (unsigned char keycode, int x, int y)
 {
-    printf("Touche frapee : %c (code ascii %d)\n",keycode, keycode);
     switch (keycode)
     {
         case '6':
@@ -115,14 +114,23 @@ void keyboard (unsigned char keycode, int x, int y)
         case 'p':
             common_mesh_perlin_extrude (3);
             break;
+        case 27:
+            /* ECHAPH */
+            exit (0);
+            break;
         default:
             break;
     }
-
-    if (keycode == 27) // ECHAP
-        exit (0);
+    #ifdef __ENABLE_DEBUG
+        fprintf(stderr, "Touche frapee : %c (code ascii %d)\n",keycode, keycode);
+    #endif
 
     glutPostRedisplay ();
+}
+
+void _debug (const char * const message)
+{
+    fprintf (stderr, message);
 }
 
 void special (int keycode, int x, int y)
@@ -130,13 +138,35 @@ void special (int keycode, int x, int y)
     int mod = glutGetModifiers ();
     switch (keycode)
     {
-        case GLUT_KEY_UP        : printf("Flèche haut\n"); _go_up (); break;
-        case GLUT_KEY_DOWN      : printf("Flèche bas\n"); _go_down (); break;
-        case GLUT_KEY_LEFT      : printf("Flèche gauche\n"); _go_left (); break;
-        case GLUT_KEY_RIGHT     : printf("Flèche droite\n"); _go_right (); break;
-        case GLUT_KEY_PAGE_UP   : printf("Flèche avant\n"); _go_close (); break;
-        case GLUT_KEY_PAGE_DOWN : printf("Flèche arriere\n"); _go_away (); break;
-        default : fprintf(stderr,"function special : unknown keycode %d\n",keycode); break;
+        case GLUT_KEY_UP:
+            _debug ("Flèche haut\n");
+            _go_up ();
+            break;
+        case GLUT_KEY_DOWN:
+            _debug ("Flèche bas\n");
+            _go_down ();
+            break;
+        case GLUT_KEY_LEFT:
+            _debug ("Flèche gauche\n");
+            _go_left ();
+            break;
+        case GLUT_KEY_RIGHT:
+            _debug ("Flèche droite\n");
+            _go_right ();
+            break;
+        case GLUT_KEY_PAGE_UP:
+            _debug ("Flèche avant\n");
+            _go_close ();
+            break;
+        case GLUT_KEY_PAGE_DOWN :
+            _debug ("Flèche arriere\n");
+            _go_away ();
+            break;
+        default :
+            #ifdef __ENABLE_DEBUG
+                fprintf (stderr, "function special : unknown keycode %d\n", keycode);
+            #endif
+            break;
     }
     if (mod == GLUT_ACTIVE_CTRL)
         glLightfv (GL_LIGHT0, GL_POSITION, p_light);
@@ -159,7 +189,9 @@ static inline double _y_to_double (int y)
 
 void mouse (int button, int state, int x, int y)
 {
-    printf ("Clic at %d %d \n",x,y);
+    #ifdef __ENABLE_DEBUG
+        fprintf (stderr, "Clic at %d %d \n", x, y);
+    #endif
 
     switch (button)
     {
@@ -170,7 +202,9 @@ void mouse (int button, int state, int x, int y)
                 double y_double = _y_to_double (y);
                 vector v = v_new (x_double, y_double, 0.0);
                 common_polygon_add_vertex (v);
-                printf ("doubles: %f %f\n", x_double, y_double);
+                #ifdef __ENABLE_DEBUG
+                    fprintf (stderr, "Double values: %f %f\n", x_double, y_double);
+                #endif
             }
             break;
         case GLUT_MIDDLE_BUTTON:
