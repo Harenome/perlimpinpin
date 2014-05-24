@@ -25,19 +25,34 @@ void window_common_init (void)
     p_add_vertex (& _POLYGON, v_new (1.0, 0.0, 0.0));
     p_add_vertex (& _POLYGON, v_new (0.0, 0.5, 0.0));
     p_add_vertex (& _POLYGON, v_new (0.5, 0.0, 0.0));
-    _POLYGON._is_closed = true;
+    p_close (& _POLYGON);
     m_revolution (& _MESH, & _POLYGON, 100);
     m_print (& _MESH, NULL);
 }
 
-polygon * const common_polygon (void)
+const polygon * const common_polygon (void)
 {
     return & _POLYGON;
 }
 
-mesh * const common_mesh (void)
+const mesh * const common_mesh (void)
 {
     return & _MESH;
+}
+
+void common_polygon_add_vertex (point v)
+{
+    p_add_vertex (& _POLYGON, v);
+}
+
+void common_polygon_close (void)
+{
+    p_close (& _POLYGON);
+}
+
+void common_mesh_perlin_extrude (int slices)
+{
+    m_perlin_extrude (& _MESH, & _POLYGON, slices);
 }
 
 void draw_common_polygon (void)

@@ -22,12 +22,17 @@
 static const int WIDTH = 650;
 static const int HEIGHT = 650;
 
-GLfloat p_light[4];
+static GLfloat p_light[4];
 
 void window_common_init (void);
 
-polygon * const common_polygon (void);
-mesh * const common_mesh (void);
+const polygon * const common_polygon (void);
+const mesh * const common_mesh (void);
+
+void common_polygon_add_vertex (point v);
+void common_polygon_close (void);
+void common_mesh_perlin_extrude (int slices);
+
 void draw_common_polygon (void);
 void draw_common_mesh (void);
 

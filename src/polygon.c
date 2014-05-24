@@ -114,6 +114,11 @@ void p_draw (const polygon * const p, int width, int height)
     }
 }
 
+void p_close (polygon * const p)
+{
+    p->_is_closed = true;
+}
+
 bool p_is_closed (const polygon * const p)
 {
     return p != NULL && p->_is_closed;
