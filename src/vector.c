@@ -225,12 +225,13 @@ void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y)
 
     if (_v_col (u_z, j))
     {
-        /* ? */
+        * u_x = v_new (1.0, 0.0, 0.0);
+        * u_y = v_new (0.0, 0.0, 1.0);
     }
     else
     {
-        * u_x = v_cross (j, u_z);
-        * u_y = v_cross (u_z, * u_x);
+        * u_x = v_unit (v_cross (j, u_z));
+        * u_y = v_unit (v_cross (u_z, * u_x));
     }
 }
 
@@ -252,8 +253,8 @@ static inline vector _v_recompose_v (vector v, vector i, vector j, vector k)
 vector v_rotate (point p, point centre, point a, point b)
 {
     vector a_x, a_y, b_x, b_y;
-    vector a_z = v_add (centre, a);
-    vector b_z = v_add (centre, b);
+    vector a_z = v_unit (v_add (centre, a));
+    vector b_z = v_unit (v_add (centre, b));
     v_ux_uy_from_uz (a_z, & a_x, & a_y);
     v_ux_uy_from_uz (b_z, & b_x, & b_y);
 
