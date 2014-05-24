@@ -239,21 +239,30 @@ void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y)
     }
 }
 
-vector v_rotate (point p, point centre, vector a, vector b)
+static inline vector _v_decompose_v (vector v, vector i, vector j, vector k)
 {
-    /* Voir sujet...
-     * Utilisation de centre ??
-     */
-    vector a_x = v_new (0.0, 0.0, 0.0);
-    vector a_y = v_new (0.0, 0.0, 0.0);
-    vector b_x = v_new (0.0, 0.0, 0.0);
-    vector b_y = v_new (0.0, 0.0, 0.0);
-    v_ux_uy_from_uz (a, & a_x, & a_y);
-    v_ux_uy_from_uz (b, & b_x, & b_y);
+    return v_new
+    (
+        v_decompose (v, i),
+        v_decompose (v, j),
+        v_decompose (v, k)
+    );
+}
 
-    double x = v_decompose (p, a_x);
-    double y = v_decompose (p, a_y);
-    double z = v_decompose (p, a);
+static inline vector _v_recompose_v (vector v, vector i, vector j, vector k)
+{
+    return v_recompose (v.x, v.y, v.z, i, j, k);
+}
 
-    return v_recompose (x, y, z, b_x, b_y, b);
+vector v_rotate (point p, point centre, point a, point b)
+{
+    vector a_x, a_y, b_x, b_y;
+    vector a_z = v_add (centre, a);
+    vector b_z = v_add (centre, b);
+    v_ux_uy_from_uz (a_z, & a_x, & a_y);
+    v_ux_uy_from_uz (b_z, & b_x, & b_y);
+
+    vector p_in_a = _v_decompose_v (p, a_x, a_y, a_z);
+
+    return _v_recompose_v (p_in_a, b_x, b_y, b_z);
 }

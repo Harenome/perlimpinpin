@@ -6,12 +6,6 @@
  * \date September the 25th 2013 (HABIBI Arash)
  * \date 2014 (RAZANAJATO RANAIVOARIVONY Harenome)
  * \copyright WTFPL version 2
- *
- * \todo v_project_on_plane
- * \todo v_decompose
- * \todo v_recompose
- * \todo v_ux_uy_from_uz
- * \todo v_rotate
  */
 /* This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
@@ -230,6 +224,6 @@ void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y);
  * \relates vector
  * \pre \c a et \c b sont des vecteurs unitaires.
  */
-vector v_rotate (point p, point centre, vector a, vector b);
+vector v_rotate (point p, point centre, point a, point b);
 
 #endif // __VECTOR_H__
