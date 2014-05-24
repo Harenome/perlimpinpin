@@ -96,10 +96,11 @@ void p_draw (const polygon * const p, int width, int height)
 {
     if (p != NULL)
     {
-        if (p_is_closed (p))
-            glBegin (GL_POLYGON);
-        else
+        if (p->_nb_vertices < 3)
             glBegin (GL_LINES);
+        else
+            glPolygonMode (GL_FRONT_AND_BACK, GL_LINE);
+            glBegin (GL_POLYGON);
 
         for (int i = 0; i < p->_nb_vertices; ++i)
         {
@@ -109,6 +110,11 @@ void p_draw (const polygon * const p, int width, int height)
 
         glEnd ();
     }
+}
+
+void p_close (polygon * const p)
+{
+    p->_is_closed = true;
 }
 
 bool p_is_closed (const polygon * const p)

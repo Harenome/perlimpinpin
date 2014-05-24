@@ -97,6 +97,14 @@ void p_print (const polygon * const p, const char * const message);
 void p_draw (const polygon * const p, int width, int height);
 
 /**
+ * \brief Fermer un polygone.
+ * \param p Polygone.
+ * \pre Le polygone a au moins 3 sommets.
+ * \warning Le polygone ne sera pas fermé s'il possède moins de 3 sommets.
+ */
+void p_close (polygon * const p);
+
+/**
  * \brief Déterminer si un polygone est fermé.
  * \param p Polygone.
  * \retval true si le polygone est fermé.

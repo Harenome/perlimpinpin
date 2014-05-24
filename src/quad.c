@@ -25,16 +25,22 @@ void q_print (const quad * const q, const char * const message)
             fprintf (stderr, "%s:\n", message);
         if (q != NULL)
             for (int i = 0; i < 4; ++i)
+            {
+                fprintf (stderr, "\t");
                 v_print (q->_vertices[i], NULL);
+            }
     #endif
 }
 
 void q_draw (const quad * const q)
 {
+    glPolygonMode (GL_FRONT_AND_BACK, GL_FILL);
     glBegin (GL_POLYGON);
 
     for (int i = 0; i < 4; ++i)
     {
+        double colour = 1.0 / 8 * (i + 4);
+        glColor3d (colour, colour, colour);
         vector v = q->_vertices[i];
         glVertex3d (v.x, v.y, v.z);
     }
