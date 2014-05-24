@@ -6,10 +6,6 @@
  * \date September the 25th 2013 (HABIBI Arash)
  * \date 2014 (RAZANAJATO RANAIVOARIVONY Harenome)
  * \copyright WTFPL version 2
- *
- * \todo p_draw
- * \todo p_is_inside
- * \todo p_scale
  */
 /* This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it

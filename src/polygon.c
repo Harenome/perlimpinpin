@@ -90,6 +90,18 @@ void p_print (const polygon * const p, const char * const message)
 
 void p_draw (const polygon * const p, int width, int height)
 {
+    if (p_is_closed (p))
+        glBegin (GL_POLYGON);
+    else
+        glBegin (GL_LINES);
+
+    for (int i = 0; i < p->_nb_vertices; ++i)
+    {
+        vector v = p->_vertices[i];
+        glVertex3d (v.x, v.y, v.z);
+    }
+
+    glEnd ();
 }
 
 bool p_is_closed (const polygon * const p)
