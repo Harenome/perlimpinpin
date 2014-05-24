@@ -6,23 +6,6 @@
  * \date September the 25th 2013 (HABIBI Arash)
  * \date 2014 (RAZANAJATO RANAIVOARIVONY Harenome)
  * \copyright WTFPL version 2
- *
- * \todo p_new
- * \todo p_copy
- * \todo p_add_vertex
- * \todo p_remove_last_vertex
- * \todo p_print
- * \todo p_draw
- * \todo p_is_convex
- * \todo p_is_on_the_left_of_all_edges
- * \todo p_nb_edges_intersected_by_ray
- * \todo p_is_inside
- * \todo p_turn_around_y
- * \todo p_center
- * \todo p_normal
- * \todo p_scale
- * \todo p_translate
- * \todo p_rotate
  */
 /* This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
@@ -71,8 +54,9 @@ polygon * p_new (void);
  * \param[in] original Polygone original.
  * \param[in,out] copy Destination de la copie.
  * \relates polygon
+ * \pre copy a été préalablement alloué.
  */
-void p_copy (const polygon * original, polygon * copy);
+void p_copy (const polygon * const original, polygon * const copy);
 
 /**
  * \brief Ajouter, si possible, un sommet au polygone.
@@ -80,14 +64,14 @@ void p_copy (const polygon * original, polygon * copy);
  * \param v Sommet.
  * \relates polygon
  */
-void p_add_vertex (polygon * p, point v);
+void p_add_vertex (polygon * const p, point v);
 
 /**
  * \brief Retirer le dernier sommet, s'il y a des sommets.
  * \param p Polygone.
  * \relates polygon
  */
-void p_remove_last_vertex (polygon * p);
+void p_remove_last_vertex (polygon * const p);
 
 /**
  * \brief Afficher un polygone.
@@ -95,7 +79,7 @@ void p_remove_last_vertex (polygon * p);
  * \param message Message.
  * \relates polygon
  */
-void p_print (const polygon * p, const char * message);
+void p_print (const polygon * const p, const char * const message);
 
 /**
  * \brief Dessiner un polygone.
@@ -104,7 +88,25 @@ void p_print (const polygon * p, const char * message);
  * \param height Hauteur.
  * \relates polygon
  */
-void p_draw (const polygon * p, int width, int height);
+void p_draw (const polygon * const p, int width, int height);
+
+/**
+ * \brief Déterminer si un polygone est fermé.
+ * \param p Polygone.
+ * \retval true si le polygone est fermé.
+ * \retval false sinon.
+ * \relates polygon
+ */
+bool p_is_closed (const polygon * const p);
+
+/**
+ * \brief Déterminer si un polygone est rempli.
+ * \param p Polygone.
+ * \retval true si le polygone est rempli.
+ * \retval false sinon.
+ * \relates polygon
+ */
+bool p_is_filled (const polygon * const p);
 
 /**
  * \brief Déterminer si un polygone est convexe.
@@ -113,7 +115,7 @@ void p_draw (const polygon * p, int width, int height);
  * \retval false sinon.
  * \relates polygon
  */
-bool p_is_convex (const polygon * p);
+bool p_is_convex (const polygon * const p);
 
 /**
  * \brief Déterminer si un point est à la gauche de tous les côtés d'un polygone.
@@ -123,7 +125,7 @@ bool p_is_convex (const polygon * p);
  * \retval false sinon.
  * \relates polygon
  */
-bool p_is_on_the_left_of_all_edges (const polygon * p, point m);
+bool p_is_on_the_left_of_all_edges (const polygon * const p, point m);
 
 /**
  * \brief Obtenir le nombre de côtés intersectés par une demi-droite.
@@ -133,7 +135,7 @@ bool p_is_on_the_left_of_all_edges (const polygon * p, point m);
  * \return Nombre de côtés intersectés.
  * \relates polygon
  */
-int p_nb_edges_intersected_by_ray (const polygon * p, point m, vector u_ray);
+int p_nb_edges_intersected_by_ray (const polygon * const p, point m, vector u_ray);
 
 /**
  * \brief Déterminer si un point est à l'interieur d'un polygone.
@@ -143,7 +145,7 @@ int p_nb_edges_intersected_by_ray (const polygon * p, point m, vector u_ray);
  * \retval false sinon.
  * \relates polygon
  */
-bool p_is_inside (const polygon * p, point m);
+bool p_is_inside (const polygon * const p, point m);
 
 /**
  * \brief Faire tourner un polygone autour de l'axe Y.
@@ -151,7 +153,7 @@ bool p_is_inside (const polygon * p, point m);
  * \param angle Angle de rotation.
  * \relates polygon
  */
-void p_turn_around_y (polygon * p, double angle);
+void p_turn_around_y (polygon * const p, double angle);
 
 /**
  * \brief Obtenir le centre (la moyenne des positions des sommets) d'un polygone plan.
@@ -159,7 +161,7 @@ void p_turn_around_y (polygon * p, double angle);
  * \return centre.
  * \relates polygon
  */
-vector p_center (const polygon * p);
+vector p_center (const polygon * const p);
 
 /**
  * \brief Obtenir un vecteur unitaire normal à un polygone plan.
@@ -167,7 +169,7 @@ vector p_center (const polygon * p);
  * \return Vecteur unitaire normal au polygone plan.
  * \relates polygon
  */
-vector p_normal (const polygon * p);
+vector p_normal (const polygon * const p);
 
 /**
  * \brief Mettre à l'échelle un polygone.
@@ -175,7 +177,7 @@ vector p_normal (const polygon * p);
  * \param factor Facteur de mise à l'échelle.
  * \relates polygon
  */
-void p_scale (polygon * p, double factor);
+void p_scale (polygon * const p, double factor);
 
 /**
  * \brief Translater un polygone.
@@ -183,7 +185,7 @@ void p_scale (polygon * p, double factor);
  * \param trans Vecteur de translation.
  * \relates polygon
  */
-void p_translate (polygon * p, vector trans);
+void p_translate (polygon * const p, vector trans);
 
 /**
  * \brief Rotation d'un vecteur autour de son centre afin que son vecteur normal soit égal à \c normal.
@@ -191,6 +193,6 @@ void p_translate (polygon * p, vector trans);
  * \param normal Vecteur cible.
  * \relates polygon
  */
-void p_rotate (polygon * p, vector normal);
+void p_rotate (polygon * const p, vector normal);
 
 #endif // _POLYGON_H_
