@@ -18,6 +18,7 @@
 
 int main (int argc, char ** argv)
 {
+    callback_init ();
     window_init (argc, argv);
 
     glutMainLoop ();

@@ -20,6 +20,8 @@
 #include "mesh.h"
 #include "window_common.h"
 
+void callback_init (void);
+
 void display (void);
 
 void keyboard (unsigned char keycode, int x, int y);
