@@ -13,35 +13,6 @@
  */
 #include "mesh.h"
 
-quad q_new (point a, point b, point c, point d)
-{
-    return (quad) { ._vertices = { a, b, c, d } };
-}
-
-void q_print (const quad * const q, const char * const message)
-{
-    #ifdef __ENABLE_DEBUG
-        if (message != NULL)
-            fprintf (stderr, "%s:\n", message);
-        if (q != NULL)
-            for (int i = 0; i < 4; ++i)
-                v_print (q->_vertices[i], NULL);
-    #endif
-}
-
-void q_draw (const quad * const q)
-{
-    glBegin (GL_POLYGON);
-
-    for (int i = 0; i < 4; ++i)
-    {
-        vector v = q->_vertices[i];
-        glVertex3d (v.x, v.y, v.z);
-    }
-
-    glEnd ();
-}
-
 mesh * m_new (void)
 {
     mesh * const m = malloc (sizeof * m);

@@ -24,41 +24,13 @@
 
 #include "vector.h"
 #include "polygon.h"
+#include "quad.h"
 #include "perlin.h"
 
 /**
  * \brief Nombre maximal de quadrilatères.
  */
 #define M_MAX_QUADS 5000
-
-/**
- * \brief Quadrilatère.
- */
-typedef struct
-{
-    point _vertices[4];    /**<- Sommets. */
-} quad;
-
-/**
- * \brief Créer un nouveau quadrilatère.
- * \relates quad
- */
-quad q_new (point a, point b, point c, point d);
-
-/**
- * \brief Afficher un quadrilatère.
- * \param q Quadrilatère.
- * \param message Message.
- * \relates quad
- */
-void q_print (const quad * const q, const char * const message);
-
-/**
- * \brief Dessiner un quadrilatère.
- * \param q Quadrilatère
- * \relates quad
- */
-void q_draw (const quad * const q);
 
 /**
  * \brief Maillage.
