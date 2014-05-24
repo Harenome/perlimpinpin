@@ -8,14 +8,8 @@
  * \copyright WTFPL version 2
  *
  * \todo p_draw
- * \todo p_is_on_the_left_of_all_edges
- * \todo p_nb_edges_intersected_by_ray
  * \todo p_is_inside
- * \todo p_turn_around_y
- * \todo p_normal
  * \todo p_scale
- * \todo p_translate
- * \todo p_rotate
  */
 /* This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
