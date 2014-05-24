@@ -13,56 +13,63 @@
  */
 #include "window_common.h"
 
-static polygon _POLYGON;
-static mesh _MESH;
+static bool _extruded = false;
+static polygon _polygon;
+static mesh _mesh;
 
 void window_common_init (void)
 {
-    p_init (& _POLYGON);
-    m_init (& _MESH);
+    _extruded = false;
+    p_init (& _polygon);
+    m_init (& _mesh);
+    p_close (& _polygon);
 
-    p_add_vertex (& _POLYGON, v_new (0.0, -0.5, 0.0));
-    p_add_vertex (& _POLYGON, v_new (1.0, 0.0, 0.0));
-    p_add_vertex (& _POLYGON, v_new (0.0, 0.5, 0.0));
-    p_add_vertex (& _POLYGON, v_new (0.5, 0.0, 0.0));
-    p_close (& _POLYGON);
-    p_print (& _POLYGON, "Common polygon");
-    /* m_revolution (& _MESH, & _POLYGON, 100); */
-    m_perlin_extrude (& _MESH, & _POLYGON, 10);
-    m_print (& _MESH, "Common mesh");
+    /* p_add_vertex (& _polygon, v_new (0.0, -0.5, 0.0)); */
+    /* p_add_vertex (& _polygon, v_new (1.0, 0.0, 0.0)); */
+    /* p_add_vertex (& _polygon, v_new (0.0, 0.5, 0.0)); */
+    /* p_add_vertex (& _polygon, v_new (0.5, 0.0, 0.0)); */
+    /* p_close (& _polygon); */
+    /* p_print (& _polygon, "Common polygon"); */
+    /* m_revolution (& _mesh, & _polygon, 100); */
+    /* m_perlin_extrude (& _mesh, & _polygon, 10); */
+    /* m_print (& _mesh, "Common mesh"); */
 }
 
 const polygon * const common_polygon (void)
 {
-    return & _POLYGON;
+    return & _polygon;
 }
 
 const mesh * const common_mesh (void)
 {
-    return & _MESH;
+    return & _mesh;
 }
 
 void common_polygon_add_vertex (point v)
 {
-    p_add_vertex (& _POLYGON, v);
+    p_add_vertex (& _polygon, v);
 }
 
 void common_polygon_close (void)
 {
-    p_close (& _POLYGON);
+    p_close (& _polygon);
 }
 
 void common_mesh_perlin_extrude (int slices)
 {
-    m_perlin_extrude (& _MESH, & _POLYGON, slices);
+    if (! _extruded)
+    {
+        _extruded = true;
+        m_perlin_extrude (& _mesh, & _polygon, slices);
+    }
 }
 
 void draw_common_polygon (void)
 {
-    p_draw (& _POLYGON, WIDTH, HEIGHT);
+    p_draw (& _polygon, WIDTH, HEIGHT);
 }
 
 void draw_common_mesh (void)
 {
-    m_draw (& _MESH);
+    m_draw (& _mesh);
 }
