@@ -197,7 +197,8 @@ void p_translate (polygon * const p, vector trans)
 void p_rotate (polygon * const p, vector normal)
 {
     vector center = p_center (p);
-    vector current_normal = p_normal (p);
+    vector current_normal = v_add (center, p_normal (p));
+    vector target_normal = v_add (center, v_unit (normal));
     for (int i = 0; i < p->_nb_vertices; ++i)
-        p->_vertices[i] = v_rotate (p->_vertices[i], center, current_normal, normal);
+        p->_vertices[i] = v_rotate (p->_vertices[i], center, current_normal, target_normal);
 }
