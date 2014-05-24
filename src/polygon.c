@@ -97,7 +97,10 @@ void p_draw (const polygon * const p, int width, int height)
     if (p != NULL)
     {
         if (p_is_closed (p))
+        {
+            glPolygonMode (GL_FRONT_AND_BACK, GL_LINE);
             glBegin (GL_POLYGON);
+        }
         else
             glBegin (GL_LINES);
 

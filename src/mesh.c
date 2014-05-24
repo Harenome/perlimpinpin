@@ -67,14 +67,15 @@ void m_add_slice (mesh * const m, const polygon * const p1, const polygon * cons
 {
     if (m != NULL && p1 != NULL && p2 != NULL && p1->_nb_vertices == p2->_nb_vertices)
     {
-        for (int i = 0; i < p1->_nb_vertices + 1; ++i)
+        for (int i = 0; i < p1->_nb_vertices; ++i)
         {
+            int j = (i + 1) % p1->_nb_vertices;
             quad q = q_new
             (
                 p1->_vertices[i],
                 p2->_vertices[i],
-                p2->_vertices[i + 1],
-                p1->_vertices[i + 1]
+                p2->_vertices[j],
+                p1->_vertices[j]
             );
             m_add_quad (m, q);
         }

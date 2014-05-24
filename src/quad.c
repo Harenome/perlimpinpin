@@ -31,6 +31,7 @@ void q_print (const quad * const q, const char * const message)
 
 void q_draw (const quad * const q)
 {
+    glPolygonMode (GL_FRONT_AND_BACK, GL_LINE);
     glBegin (GL_POLYGON);
 
     for (int i = 0; i < 4; ++i)
