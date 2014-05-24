@@ -49,7 +49,10 @@ void m_print (const mesh * const m, const char * const message)
                 m->_nb_quads
             );
             for (int i = 0; i < m->_nb_quads; ++i)
+            {
+                fprintf (stderr, "quad %d\n", i);
                 q_print (& m->_quads[i], NULL);
+            }
         }
     #endif
 }
@@ -113,7 +116,7 @@ void m_perlin_extrude (mesh * const m, const polygon * const p, int nb_slices)
             vector center = p_center (& b);
             vector noise = prln_vector_noise (center);
             p_translate (& b, noise);
-            p_rotate (& b, noise);
+            /* p_rotate (& b, noise); */
             m_add_slice (m, & a, & b);
             p_copy (& b, & a);
         }

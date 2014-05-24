@@ -25,7 +25,10 @@ void q_print (const quad * const q, const char * const message)
             fprintf (stderr, "%s:\n", message);
         if (q != NULL)
             for (int i = 0; i < 4; ++i)
+            {
+                fprintf (stderr, "\t");
                 v_print (q->_vertices[i], NULL);
+            }
     #endif
 }
 
