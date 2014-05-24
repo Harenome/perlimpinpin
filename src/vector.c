@@ -64,7 +64,7 @@ vector v_cross (vector a, vector b)
     (
         a.y * b.z - a.z * b.y,
         a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * b.y
+        a.x * b.y - a.y * b.x
     );
 }
 
@@ -199,7 +199,7 @@ vector v_project_on_plane (vector v, vector normal)
 
 double v_decompose (vector p, vector u)
 {
-    return v_dot (p, u);
+    return v_dot (p, u) * v_length (u);
 }
 
 vector v_recompose (double x, double y, double z, vector u, vector v, vector w)
@@ -221,17 +221,25 @@ static inline bool _v_col (vector a, vector b)
 void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y)
 {
     /* Voir sujet. */
-    vector j = v_new (0, 1, 0);
+    vector j = v_new (0.0, 1.0, 0.0);
 
-    if (_v_col (u_z, j))
+    if (_v_col (j, u_z))
     {
-        * u_x = v_new (1.0, 0.0, 0.0);
-        * u_y = v_new (0.0, 0.0, 1.0);
+        if (u_z.y > 0)
+        {
+            * u_x = v_new (1.0, 0.0, 0.0);
+            * u_y = v_new (0.0, 0.0, -1.0);
+        }
+        else
+        {
+            * u_x = v_new (-1.0, 0.0, 0.0);
+            * u_y = v_new (0.0, 0.0, -1.0);
+        }
     }
     else
     {
-        * u_x = v_unit (v_cross (j, u_z));
-        * u_y = v_unit (v_cross (u_z, * u_x));
+        * u_y = v_unit (v_cross (j, u_z));
+        * u_x = v_unit (v_cross (* u_y, u_z));
     }
 }
 
@@ -261,4 +269,22 @@ vector v_rotate (point p, point centre, point a, point b)
     vector p_in_a = _v_decompose_v (p, a_x, a_y, a_z);
 
     return _v_recompose_v (p_in_a, b_x, b_y, b_z);
+}
+
+vector v_rotate_2 (point p, point centre, point a, point b)
+{
+    vector a_x = v_new (0.0, 0.0, 0.0);
+    vector a_y = v_new (0.0, 0.0, 0.0);
+    vector b_x = v_new (0.0, 0.0, 0.0);
+    vector b_y = v_new (0.0, 0.0, 0.0);
+    vector a_z = v_unit (a);
+    vector b_z = v_unit (b);
+    v_ux_uy_from_uz (a_z, & a_x, & a_y);
+    v_ux_uy_from_uz (b_z, & b_x, & b_y);
+    vector p_in_a = v_substract (p, centre);
+    p_in_a = _v_decompose_v (p_in_a, a_x, a_y, a_z);
+    p_in_a = _v_recompose_v (p_in_a, b_x, b_y, b_z);
+    p_in_a = v_add (p_in_a, centre);
+
+    return p_in_a;
 }

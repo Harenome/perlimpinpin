@@ -233,5 +233,6 @@ void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y);
  * \pre \c a et \c b sont des vecteurs unitaires.
  */
 vector v_rotate (point p, point centre, point a, point b);
+vector v_rotate_2 (point p, point centre, point a, point b);
 
 #endif // __VECTOR_H__
