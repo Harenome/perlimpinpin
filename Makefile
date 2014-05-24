@@ -31,10 +31,11 @@ utilities.o: utilities.c utilities.h
 vector.o: vector.c vector.h utilities.h
 polygon.o: polygon.c polygon.h vector.h
 perlin.o: perlin.c perlin.h vector.h
-mesh.o: mesh.c mesh.h vector.h polygon.h perlin.h
+quad.o: quad.c quad.h vector.h
+mesh.o: mesh.c mesh.h vector.h polygon.h perlin.h quad.h
 
-libperlimpinpin.a: utilities.o vector.o polygon.o perlin.o mesh.o | lib_dir
-		ar -crv $(PATH_LIB)/libperlimpinpin.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/vector.o $(PATH_OBJ)/polygon.o $(PATH_OBJ)/perlin.o $(PATH_OBJ)/mesh.o
+libperlimpinpin.a: utilities.o vector.o polygon.o perlin.o quad.o mesh.o | lib_dir
+		ar -crv $(PATH_LIB)/libperlimpinpin.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/vector.o $(PATH_OBJ)/polygon.o $(PATH_OBJ)/perlin.o $(PATH_OBJ)/quad.o $(PATH_OBJ)/mesh.o
 		ranlib $(PATH_LIB)/libperlimpinpin.a
 
 tests: main
