@@ -17,61 +17,122 @@
 #define DIM3 1
 static int dim = DIM2;
 
-#define _MOVE_STEP 0.1
+#define _TRANSLATION_STEP 0.05
+#define _ROTATION_STEP 10
+#define _SCALE_STEP 0.1
 
-static vector _eye;
-static vector _center;
-static vector _up;
+static double _x_translation;
+static double _y_translation;
+
+static double _horizontal_rotation;
+static double _vertical_rotation;
+
+static double _scale;
 
 void callback_init (void)
 {
-    _eye = v_new (0.0, 0.0, 1.0);
-    _center = v_new (0.0, 0.0, 0.0);
-    _up = v_new (0.0, 1.0, 0.0);
+    _x_translation = 0.0;
+    _y_translation = 0.0;
+    _horizontal_rotation = 0.0;
+    _vertical_rotation = 0.0;
+    _scale = 1.0;
 }
 
 #define _go(direction, op, step) _eye.direction op ## = step; _center.direction op ## = step
 
+static inline void _add_to_value (double * const value, double x)
+{
+    * value += x;
+}
+
+static inline void _angle_increase (double * const value)
+{
+    _add_to_value (value, _ROTATION_STEP);
+}
+
+static inline void _angle_decrease (double * const value)
+{
+    _add_to_value (value, - _ROTATION_STEP);
+}
+
+static inline void _translation_increase (double * const value)
+{
+    _add_to_value (value, _TRANSLATION_STEP);
+}
+
+static inline void _translation_decrease (double * const value)
+{
+    _add_to_value (value, - _TRANSLATION_STEP);
+}
+
+static inline void _scale_increase (double * const value)
+{
+    _add_to_value (value, _SCALE_STEP);
+}
+
+static inline void _scale_decrease (double * const value)
+{
+    _add_to_value (value, - _SCALE_STEP);
+}
+
 static void _go_left (void)
 {
-    _go (x, +, _MOVE_STEP);
+    if (is_extruded ())
+        _translation_decrease (& _x_translation);
 }
 
 static void _go_right (void)
 {
-    _go (x, -, _MOVE_STEP);
+    if (is_extruded ())
+        _translation_increase (& _x_translation);
 }
 
 static void _go_up (void)
 {
-    _go (y, -, _MOVE_STEP);
+    if (is_extruded ())
+        _translation_increase (& _y_translation);
 }
 
 static void _go_down (void)
 {
-    _go (y, +, _MOVE_STEP);
-}
-
-static void _go_close (void)
-{
-    _go (z, +, _MOVE_STEP);
-    printf ("%f, %f\n", _eye.z, _center.z);
-}
-
-static void _go_away (void)
-{
-    _go (z, -, _MOVE_STEP);
-    printf ("%f, %f\n", _eye.z, _center.z);
+    if (is_extruded ())
+        _translation_decrease (& _y_translation);
 }
 
 static void _rotate_left (void)
 {
-    _up = v_turn_around_z (_up, 10);
+    if (is_extruded ())
+        _angle_decrease (& _horizontal_rotation);
 }
 
 static void _rotate_right (void)
 {
-    _up = v_turn_around_z (_up, -10);
+    if (is_extruded ())
+        _angle_increase (& _horizontal_rotation);
+}
+
+static void _rotate_up (void)
+{
+    if (is_extruded ())
+        _angle_increase (& _vertical_rotation);
+}
+
+static void _rotate_down (void)
+{
+    if (is_extruded ())
+        _angle_decrease (& _vertical_rotation);
+}
+
+static void _zoom_in (void)
+{
+    if (is_extruded ())
+        _scale_increase (& _scale);
+}
+
+static void _zoom_out (void)
+{
+    if (is_extruded ())
+        _scale_decrease (& _scale);
 }
 
 void display (void)
@@ -86,14 +147,19 @@ void display (void)
     if (dim == DIM2)
         glOrtho (-1,1,-1,1,-1,1);
     else
-        gluPerspective (40, (float) WIDTH/HEIGHT, 1, 100);
+        gluPerspective (0, (float) WIDTH/HEIGHT, 1, 100);
 
-    /* gluLookAt (_eye.x, _eye.y, _eye.z, _center.x, _center.y, _center.z, _up.x, _up.y, _up.z); */
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity ();
+    glScaled (_scale, _scale, _scale);
+    glRotated (_horizontal_rotation, 0, 1, 0);
+    glRotated (_vertical_rotation, 1, 0, 0);
+    glTranslated (_x_translation, _y_translation, 0.0);
 
-    draw_common_polygon ();
-    draw_common_mesh ();
+    if (is_extruded ())
+        draw_common_mesh ();
+    else
+        draw_common_polygon ();
 
     glutSwapBuffers ();
 }
@@ -108,11 +174,18 @@ void keyboard (unsigned char keycode, int x, int y)
         case '4':
             _rotate_left ();
             break;
+        case '8':
+            _rotate_up ();
+            break;
+        case '2':
+            _rotate_down ();
+            break;
         case 'r':
             window_common_init ();
+            callback_init ();
             break;
         case 'p':
-            common_mesh_perlin_extrude (3);
+            common_mesh_perlin_extrude ();
             break;
         case 27:
             /* ECHAPH */
@@ -156,11 +229,11 @@ void special (int keycode, int x, int y)
             break;
         case GLUT_KEY_PAGE_UP:
             _debug ("Flèche avant\n");
-            _go_close ();
+            _zoom_in ();
             break;
         case GLUT_KEY_PAGE_DOWN :
             _debug ("Flèche arriere\n");
-            _go_away ();
+            _zoom_out ();
             break;
         default :
             #ifdef __ENABLE_DEBUG
@@ -207,8 +280,15 @@ void mouse (int button, int state, int x, int y)
                 #endif
             }
             break;
-        case GLUT_MIDDLE_BUTTON:
+        case 3:
+            _zoom_in ();
+            break;
+        case 4:
+            _zoom_out ();
+            break;
         case GLUT_RIGHT_BUTTON:
+            common_mesh_perlin_extrude ();
+            break;
         default:
             break;
     }

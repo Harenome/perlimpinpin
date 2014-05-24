@@ -16,6 +16,7 @@
 static bool _extruded = false;
 static polygon _polygon;
 static mesh _mesh;
+static int _perlin_slices = 10;
 
 void window_common_init (void)
 {
@@ -25,18 +26,23 @@ void window_common_init (void)
     p_close (& _polygon);
 }
 
+bool is_extruded (void)
+{
+    return _extruded;
+}
+
 void common_polygon_add_vertex (point v)
 {
     if (! _extruded)
         p_add_vertex (& _polygon, v);
 }
 
-void common_mesh_perlin_extrude (int slices)
+void common_mesh_perlin_extrude (void)
 {
     if (! _extruded)
     {
         _extruded = true;
-        m_perlin_extrude (& _mesh, & _polygon, slices);
+        m_perlin_extrude (& _mesh, & _polygon, _perlin_slices);
     }
 }
 

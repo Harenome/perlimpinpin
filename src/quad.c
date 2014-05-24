@@ -39,7 +39,7 @@ void q_draw (const quad * const q)
 
     for (int i = 0; i < 4; ++i)
     {
-        double colour = 1.0 / 12 * (i + 6);
+        double colour = 1.0 / 8 * (i + 4);
         glColor3d (colour, colour, colour);
         vector v = q->_vertices[i];
         glVertex3d (v.x, v.y, v.z);
