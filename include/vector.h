@@ -58,6 +58,14 @@ vector v_new (double x, double y, double z);
 void v_print (vector v, const char * message);
 
 /**
+ * \brief Déterminer si un vecteur est un vecteur nul.
+ * \param v Vecteur.
+ * \retval true si le vecteur est nul.
+ * \retval false sinon.
+ */
+bool v_is_zero (vector v);
+
+/**
  * \brief Additionner deux vecteurs.
  * \param a Vecteur 1.
  * \param b Vecteur 2.

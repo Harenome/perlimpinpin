@@ -44,3 +44,12 @@ double d_square (double d)
 {
     return d * d;
 }
+
+double d_det (double a, double b, double i, double j)
+{
+    /* Déterminant:
+     *  | a   i |
+     *  | b   j |
+     */
+    return a * j - b * i;
+}
