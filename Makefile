@@ -27,17 +27,21 @@ main: main.o libperlimpinpin.a | bin_dir
 		$(CC) -o $(PATH_BIN)/$@ $(PATH_OBJ)/main.o $(FLAGS_LIB)
 
 main.o: main.c vector.h polygon.h mesh.h
-vector.o: vector.c vector.h
+utilities.o: utilities.c utilities.h
+vector.o: vector.c vector.h utilities.h
 polygon.o: polygon.c polygon.h vector.h
 perlin.o: perlin.c perlin.h vector.h
 mesh.o: mesh.c mesh.h vector.h polygon.h perlin.h
 
-libperlimpinpin.a: vector.o polygon.o perlin.o mesh.o | lib_dir
-		ar -crv $(PATH_LIB)/libperlimpinpin.a $(PATH_OBJ)/vector.o $(PATH_OBJ)/polygon.o $(PATH_OBJ)/perlin.o $(PATH_OBJ)/mesh.o
+libperlimpinpin.a: utilities.o vector.o polygon.o perlin.o mesh.o | lib_dir
+		ar -crv $(PATH_LIB)/libperlimpinpin.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/vector.o $(PATH_OBJ)/polygon.o $(PATH_OBJ)/perlin.o $(PATH_OBJ)/mesh.o
 		ranlib $(PATH_LIB)/libperlimpinpin.a
 
 tests: main
-	@echo "TODO."
+		@echo "TODO."
+
+doc: clean_doc
+		@doxygen
 
 obj_dir:
 		@mkdir -p $(PATH_OBJ)
@@ -49,7 +53,13 @@ bin_dir:
 		@mkdir -p $(PATH_BIN)
 
 clean:
-		rm -rf $(PATH_BIN) $(PATH_OBJ) $(PATH_LIB)
-
-cleanall: clean
+		@rm -rf $(PATH_BIN) $(PATH_OBJ) $(PATH_LIB)
 		@echo "Clean."
+
+cleandoc: clean_doc
+clean_doc:
+		@rm -rf $(PATH_DOC)
+
+cleanall: clean_all
+clean_all: clean clean_doc
+		@echo "Super clean."
