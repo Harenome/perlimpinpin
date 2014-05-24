@@ -74,3 +74,53 @@ void m_add_quad (mesh * const m, quad q)
         m->_nb_quads++;
     }
 }
+
+void m_add_slice (mesh * const m, const polygon * const p1, const polygon * const p2)
+{
+    if (m != NULL && p1 != NULL && p2 != NULL && p1->_nb_vertices == p2->_nb_vertices)
+    {
+        for (int i = 0; i < p1->_nb_vertices + 1; ++i)
+        {
+            quad q = q_new
+            (
+                p1->_vertices[i],
+                p2->_vertices[i],
+                p2->_vertices[i + 1],
+                p1->_vertices[i + 1]
+            );
+            m_add_quad (m, q);
+        }
+    }
+}
+
+void m_revolution (mesh * const m, const polygon * const p1, int nb_slices)
+{
+    polygon a, b;
+    p_copy (p1, & a);
+    p_copy (p1, & b);
+
+    double angle = (double) 2.0 * M_PI / nb_slices;
+    for (int i = 0; i < nb_slices; ++i)
+    {
+        p_turn_around_y (& b, angle);
+        m_add_slice (m, & a, & b);
+        p_copy (& b, & a);
+    }
+}
+
+void m_perlin_extrude (mesh * const m, const polygon * const p, int nb_slices)
+{
+    polygon a, b;
+    p_copy (p, & a);
+    p_copy (p, & b);
+
+    for (int i = 0; i < nb_slices; ++i)
+    {
+        vector center = p_center (& b);
+        vector noise = prln_vector_noise (center);
+        p_translate (& b, noise);
+        p_rotate (& b, noise);
+        m_add_slice (m, & a, & b);
+        p_copy (& b, & a);
+    }
+}

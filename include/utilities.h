@@ -14,6 +14,16 @@
 #include <stdbool.h>
 #include <math.h>
 
+/* C99 VS. GNU C99 :
+ * PI a été retiré du C99...
+ * Mais est toujours présent dans le dialecte GNU du C99.
+ */
+#ifdef __STRICT_ANSI__
+    /* Test juste sur __STRICT_ANSI__, le reste du code est de toutes
+     * façons prévu pour C99... */
+    # define M_PI		3.14159265358979323846
+#endif
+
 /**
  * \brief Epsilon par défaut pour les \c float.
  */

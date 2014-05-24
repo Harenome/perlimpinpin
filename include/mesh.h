@@ -7,13 +7,6 @@
  * \date 2014 (RAZANAJATO RANAIVOARIVONY Harenome)
  * \copyright WTFPL version 2
  *
- * \todo q_new
- * \todo m_new
- * \todo m_print
- * \todo m_add_quad
- * \todo m_add_slice
- * \todo m_revolution
- * \todo m_perlin_extrude
  * \todo m_draw
  */
 /* This program is free software. It comes without any warranty, to
@@ -101,8 +94,9 @@ void m_add_quad (mesh * const m, quad q);
  * \param p1 Polygone.
  * \param p2 Polygone.
  * \relates mesh
+ * \pre p1->_nb_vertices == p2->_nb_vertices
  */
-void m_add_slice (mesh * const m, polygon * const p1, polygon * const p2);
+void m_add_slice (mesh * const m, const polygon * const p1, const polygon * const p2);
 
 /**
  * \brief Révolution.
@@ -111,7 +105,7 @@ void m_add_slice (mesh * const m, polygon * const p1, polygon * const p2);
  * \param nb_slices Nombre de coupes.
  * \relates mesh
  */
-void m_revolution (mesh * const m, polygon * const p1, int nb_slices);
+void m_revolution (mesh * const m, const polygon * const p1, int nb_slices);
 
 /**
  * \brief Extruder selon le bruit de Perlin.
@@ -120,7 +114,7 @@ void m_revolution (mesh * const m, polygon * const p1, int nb_slices);
  * \param nb_slices Nombre de coupes.
  * \relates mesh
  */
-void m_perlin_extrude (mesh * const m, polygon * const p, int nb_slices);
+void m_perlin_extrude (mesh * const m, const polygon * const p, int nb_slices);
 
 /**
  * \brief Dessiner un maillage.
