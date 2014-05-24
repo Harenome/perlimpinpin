@@ -34,11 +34,13 @@ void q_print (const quad * const q, const char * const message)
 
 void q_draw (const quad * const q)
 {
-    glPolygonMode (GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode (GL_FRONT_AND_BACK, GL_FILL);
     glBegin (GL_POLYGON);
 
     for (int i = 0; i < 4; ++i)
     {
+        double colour = 1.0 / 12 * (i + 6);
+        glColor3d (colour, colour, colour);
         vector v = q->_vertices[i];
         glVertex3d (v.x, v.y, v.z);
     }
