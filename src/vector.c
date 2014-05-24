@@ -216,3 +216,44 @@ vector v_recompose (double x, double y, double z, vector u, vector v, vector w)
 
     return result;
 }
+
+static inline bool _v_col (vector a, vector b)
+{
+    vector cross = v_cross (a, b);
+    return d_is_zero (cross.x) && d_is_zero (cross.y) && d_is_zero (cross.z);
+}
+
+void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y)
+{
+    /* Voir sujet. */
+    vector j = v_new (0, 1, 0);
+
+    if (_v_col (u_z, j))
+    {
+        /* ? */
+    }
+    else
+    {
+        * u_x = v_cross (j, u_z);
+        * u_y = v_cross (u_z, * u_x);
+    }
+}
+
+vector v_rotate (point p, point centre, vector a, vector b)
+{
+    /* Voir sujet...
+     * Utilisation de centre ??
+     */
+    vector a_x = v_new (0.0, 0.0, 0.0);
+    vector a_y = v_new (0.0, 0.0, 0.0);
+    vector b_x = v_new (0.0, 0.0, 0.0);
+    vector b_y = v_new (0.0, 0.0, 0.0);
+    v_ux_uy_from_uz (a, & a_x, & a_y);
+    v_ux_uy_from_uz (b, & b_x, & b_y);
+
+    double x = v_decompose (p, a_x);
+    double y = v_decompose (p, a_y);
+    double z = v_decompose (p, a);
+
+    return v_recompose (x, y, z, b_x, b_y, b);
+}

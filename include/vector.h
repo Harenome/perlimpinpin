@@ -218,7 +218,7 @@ vector v_recompose (double x, double y, double z, vector u, vector v, vector w);
  * \relates vector
  * \pre \c u_z est un vecteur unitaire.
  */
-void v_ux_uy_from_uz (vector u_z, vector * u_x, vector * u_y);
+void v_ux_uy_from_uz (vector u_z, vector * const u_x, vector * const u_y);
 
 /**
  * \brief Effectuer la rotation autour de \c centre et transformant \c a en \c b sur \c p.
@@ -228,6 +228,7 @@ void v_ux_uy_from_uz (vector u_z, vector * u_x, vector * u_y);
  * \param b Fin de la rotation.
  * \return Rotation.
  * \relates vector
+ * \pre \c a et \c b sont des vecteurs unitaires.
  */
 vector v_rotate (point p, point centre, vector a, vector b);
 
