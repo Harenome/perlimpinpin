@@ -50,6 +50,12 @@ typedef struct
 polygon * p_new (void);
 
 /**
+ * \brief Initialiser un polygone.
+ * \param p Polygone.
+ */
+void p_init (polygon * const p);
+
+/**
  * \brief Copier un polygone dans un autre.
  * \param[in] original Polygone original.
  * \param[in,out] copy Destination de la copie.

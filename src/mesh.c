@@ -18,16 +18,20 @@ mesh * m_new (void)
     mesh * const m = malloc (sizeof * m);
 
     if (m != NULL)
+        m_init (m);
+    else
+        perror ("malloc");
+
+    return m;
+}
+
+void m_init (mesh * const m)
+{
+    if (m != NULL)
     {
         m->_nb_quads = 0;
         m->_is_filled = 0;
     }
-    else
-    {
-        perror ("malloc");
-    }
-
-    return m;
 }
 
 void m_print (const mesh * const m, const char * const message)
@@ -79,38 +83,45 @@ void m_add_slice (mesh * const m, const polygon * const p1, const polygon * cons
 
 void m_revolution (mesh * const m, const polygon * const p1, int nb_slices)
 {
-    polygon a, b;
-    p_copy (p1, & a);
-    p_copy (p1, & b);
-
-    double angle = (double) 2.0 * M_PI / nb_slices;
-    for (int i = 0; i < nb_slices; ++i)
+    if (m != NULL && p1 != NULL && nb_slices > 0)
     {
-        p_turn_around_y (& b, angle);
-        m_add_slice (m, & a, & b);
-        p_copy (& b, & a);
+        polygon a, b;
+        p_copy (p1, & a);
+        p_copy (p1, & b);
+
+        double angle = (double) 2.0 * M_PI / nb_slices;
+        for (int i = 0; i < nb_slices; ++i)
+        {
+            p_turn_around_y (& b, angle);
+            m_add_slice (m, & a, & b);
+            p_copy (& b, & a);
+        }
     }
 }
 
 void m_perlin_extrude (mesh * const m, const polygon * const p, int nb_slices)
 {
-    polygon a, b;
-    p_copy (p, & a);
-    p_copy (p, & b);
-
-    for (int i = 0; i < nb_slices; ++i)
+    if (m != NULL && p != NULL && nb_slices > 0)
     {
-        vector center = p_center (& b);
-        vector noise = prln_vector_noise (center);
-        p_translate (& b, noise);
-        p_rotate (& b, noise);
-        m_add_slice (m, & a, & b);
-        p_copy (& b, & a);
+        polygon a, b;
+        p_copy (p, & a);
+        p_copy (p, & b);
+
+        for (int i = 0; i < nb_slices; ++i)
+        {
+            vector center = p_center (& b);
+            vector noise = prln_vector_noise (center);
+            p_translate (& b, noise);
+            p_rotate (& b, noise);
+            m_add_slice (m, & a, & b);
+            p_copy (& b, & a);
+        }
     }
 }
 
 void m_draw (const mesh * const m)
 {
-    for (int i = 0; i < m->_nb_quads; ++i)
-        q_draw (& m->_quads[i]);
+    if (m != NULL)
+        for (int i = 0; i < m->_nb_quads; ++i)
+            q_draw (& m->_quads[i]);
 }

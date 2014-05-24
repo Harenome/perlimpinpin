@@ -44,10 +44,16 @@ typedef struct
 } mesh;
 
 /**
- * \brief Créer un nouveau Maillage.
+ * \brief Créer un nouveau maillage.
  * \relates mesh
  */
 mesh * m_new (void);
+
+/**
+ * \brief Initialiser un maillage.
+ * \param m Maillage.
+ */
+void m_init (mesh * const m);
 
 /**
  * \brief Afficher un maillage.
