@@ -34,9 +34,9 @@
  */
 typedef struct
 {
-    float x;    /**<- x. */
-    float y;    /**<- y. */
-    float z;    /**<- z. */
+    double x;    /**<- x. */
+    double y;    /**<- y. */
+    double z;    /**<- z. */
 } vector;
 
 /**
@@ -53,7 +53,7 @@ typedef vector point;
  * \return Vecteur (x, y, z).
  * \relates vector
  */
-vector v_new (float x, float y, float z);
+vector v_new (double x, double y, double z);
 
 /**
  * \brief Afficher un vecteur accompagné d'un message.
@@ -106,7 +106,7 @@ vector v_cross (vector a, vector b);
  * \return a . b.
  * \relates vector
  */
-float v_dot (vector a, vector b);
+double v_dot (vector a, vector b);
 
 /**
  * \brief Obtenir la norme d'un vecteur.
@@ -183,6 +183,7 @@ vector v_turn_around_z (vector v, double angle);
  * \param normal Vecteur normal au plan.
  * \return Vecteur.
  * \relates vector
+ * \pre \c normal est un vecteur unitaire.
  */
 vector v_project_on_plane (vector v, vector normal);
 
@@ -192,6 +193,7 @@ vector v_project_on_plane (vector v, vector normal);
  * \param u Vecteur repère.
  * \return Coordonnée selon \c u de \c p.
  * \relates vector
+ * \pre \c u est un vecteur unitaire.
  */
 double v_decompose (vector p, vector u);
 
@@ -205,6 +207,7 @@ double v_decompose (vector p, vector u);
  * \param w \c w.
  * \return Vecteur.
  * \relates vector
+ * \pre \c u, \c v et \c w forment un repère orthonormé.
  */
 vector v_recompose (double x, double y, double z, vector u, vector v, vector w);
 
@@ -213,6 +216,7 @@ vector v_recompose (double x, double y, double z, vector u, vector v, vector w);
  * \param[out] u_x \c u_x.
  * \param[out] u_y \c u_y.
  * \relates vector
+ * \pre \c u_z est un vecteur unitaire.
  */
 void v_ux_uy_from_uz (vector u_z, vector * u_x, vector * u_y);
 

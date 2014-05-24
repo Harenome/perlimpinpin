@@ -12,34 +12,35 @@
  * http://www.wtfpl.net/ for more details.
  */
 #include "utilities.h"
-static float _f_epsilon = F_DEFAULT_EPSILON;
 
-void f_approximate_epsilon (void)
+static double _d_epsilon = D_DEFAULT_EPSILON;
+
+void d_approximate_epsilon (void)
 {
     /* Voir https://en.wikipedia.org/wiki/Machine_epsilon#Approximation_using_C */
-    float new_eps;
+    double new_eps;
 
-    for (new_eps = 1.0f; (float) (1.0 + (new_eps / 2.0)) != 1.0; new_eps /= 2.0f)
+    for (new_eps = 1.0; (double) (1.0 + (new_eps / 2.0)) != 1.0; new_eps /= 2.0)
         ;
 
-    _f_epsilon = new_eps;
+    _d_epsilon = new_eps;
 }
 
-float f_epsilon (void)
+double d_epsilon (void)
 {
-    return _f_epsilon;
+    return _d_epsilon;
 }
 
-bool f_equals (float a, float b)
+bool d_equals (double a, double b)
 {
-    return fabsf (a - b) < _f_epsilon;
+    return fabs (a - b) < _d_epsilon;
 }
-bool f_is_zero (float f)
+bool d_is_zero (double d)
 {
-    return f_equals (f, 0.0f);
+    return d_equals (d, 0.0);
 }
 
-float f_square (float f)
+double d_square (double d)
 {
-    return f * f;
+    return d * d;
 }

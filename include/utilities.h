@@ -15,40 +15,40 @@
 #include <math.h>
 
 /**
- * \brief Epsilon par défaut pour les \c float.
+ * \brief Epsilon par défaut pour les \c double.
  */
-#define F_DEFAULT_EPSILON 1.0e-5
+#define D_DEFAULT_EPSILON 1.0e-5
 
 /**
- * \brief Approximer l'epsilon machine pour les \c float.
+ * \brief Approximer l'epsilon machine pour les \c double.
  */
-void f_approximate_epsilon (void);
+void d_approximate_epsilon (void);
 
 /**
- * \brief Obtenir l'epsilon couramment utilisé pour les \c float.
+ * \brief Obtenir l'epsilon couramment utilisé pour les \c double.
  */
-float f_epsilon (void);
+double d_epsilon (void);
 
 /**
- * \brief Déterminer si un \c float est égal (à l'epsilon près) à 0.
- * \param f \c float à comparer.
- * \retval true si le \c float est égal à 0.
+ * \brief Déterminer si un \c double est égal (à l'epsilon près) à 0.
+ * \param f \c double à comparer.
+ * \retval true si le \c double est égal à 0.
  * \retval false sinon.
  */
-bool f_is_zero (float f);
+bool d_is_zero (double d);
 
 /**
- * \brief Déterminer si deux \c float sont égaux (à l'epsilon près).
- * \param a \c float à comparer.
- * \param b \c float à comparer.
- * \retval true si les \c float sont égaux.
+ * \brief Déterminer si deux \c double sont égaux (à l'epsilon près).
+ * \param a \c double à comparer.
+ * \param b \c double à comparer.
+ * \retval true si les \c double sont égaux.
  * \retval false sinon.
  */
-bool f_equals (float a, float b);
+bool d_equals (double a, double b);
 
 /**
- * \brief Obtenir le carré d'un \c float.
- * \param f \c float.
+ * \brief Obtenir le carré d'un \c double.
+ * \param f \c double.
  * \return Carré.
  */
-float f_square (float f);
+double d_square (double d);
