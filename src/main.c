@@ -23,6 +23,7 @@
 #include "polygon.h"
 #include "mesh.h"
 #include "window.h"
+#include "args.h"
 
 /**
  * \brief Main.
@@ -32,10 +33,14 @@
  */
 int main (int argc, char ** argv)
 {
-    callback_init ();
-    window_init (argc, argv);
+    int return_code = stupid_parse (argc, argv);
 
-    glutMainLoop ();
+    if (return_code == -1)
+    {
+        callback_init ();
+        window_init (argc, argv);
+        glutMainLoop ();
+    }
 
-    return 0;
+    return return_code;
 }

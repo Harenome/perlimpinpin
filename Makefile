@@ -33,12 +33,13 @@ polygon.o: polygon.c polygon.h vector.h
 perlin.o: perlin.c perlin.h vector.h
 quad.o: quad.c quad.h vector.h
 mesh.o: mesh.c mesh.h vector.h polygon.h perlin.h quad.h
+args.o: args.c args.h
 window_common.o: window_common.c window_common.h utilities.h vector.h polygon.h mesh.h
 window.o: window.c window.h utilities.h vector.h polygon.h mesh.h perlin.h window_callback.h
 window_callback.o: window_callback.c window_callback.h window_common.h utilities.h vector.h polygon.h mesh.h perlin.h
 
-libperlimpinpin.a: utilities.o vector.o polygon.o perlin.o quad.o mesh.o window_common.o window_callback.o window.o | lib_dir
-		ar -crv $(PATH_LIB)/libperlimpinpin.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/vector.o $(PATH_OBJ)/polygon.o $(PATH_OBJ)/perlin.o $(PATH_OBJ)/quad.o $(PATH_OBJ)/mesh.o $(PATH_OBJ)/window_common.o $(PATH_OBJ)/window_callback.o $(PATH_OBJ)/window.o
+libperlimpinpin.a: utilities.o vector.o polygon.o perlin.o quad.o mesh.o window_common.o window_callback.o window.o args.o | lib_dir
+		ar -crv $(PATH_LIB)/libperlimpinpin.a $(PATH_OBJ)/utilities.o $(PATH_OBJ)/vector.o $(PATH_OBJ)/polygon.o $(PATH_OBJ)/perlin.o $(PATH_OBJ)/quad.o $(PATH_OBJ)/mesh.o $(PATH_OBJ)/window_common.o $(PATH_OBJ)/window_callback.o $(PATH_OBJ)/window.o $(PATH_OBJ)/args.o
 		ranlib $(PATH_LIB)/libperlimpinpin.a
 
 tests: main
