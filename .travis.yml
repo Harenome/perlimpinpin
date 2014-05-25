@@ -8,3 +8,6 @@ before_install:
     - sudo apt-get -y install libcunit1 libcunit1-dev
 script:
     - make && make tests
+notifications:
+    on_success: change
+    on_failure: change

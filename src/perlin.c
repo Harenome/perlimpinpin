@@ -1,13 +1,10 @@
-
-/*=====================================================*\
-  Mercredi 29 mai 2013
-  Arash HABIBI
-  Perlin.c
-  \*=====================================================*/
-
+/**
+ * \file perlin.c
+ * \brief Perlin.
+ * \author HABIBI Arash
+ * \date May the 29 2013
+ */
 #include "perlin.h"
-
-//-----------------------------------------------------------
 
 static vector _vector_interpolate (vector v1, vector v2, double blend)
 {
@@ -29,8 +26,6 @@ static double _contrast (double x)
 // For alpha=0, the return value is x
 // For alpha=1, the return value is y
 // For intermediate values -> interpolation
-
-//-----------------------------------------------------------
 
 static double _scalar_cubic_interpolate (vector p, double * grid_values)
 {
@@ -62,8 +57,6 @@ static double _scalar_cubic_interpolate (vector p, double * grid_values)
     return res;
 }
 
-//-----------------------------------------------------------
-
 static vector _vector_linear_interpolate (vector p, vector * grid_vectors)
 {
     double fx,fy,fz; // fractional part
@@ -93,9 +86,6 @@ static vector _vector_linear_interpolate (vector p, vector * grid_vectors)
     return interp_vector;
 }
 
-
-//-----------------------------------------------------------
-
 static void _compute_dot_products (vector p, vector * random_vectors, double * dot_products)
 {
     int nx = (int) (floor (p.x));
@@ -118,8 +108,6 @@ static void _compute_dot_products (vector p, vector * random_vectors, double * d
     }
 }
 
-//-----------------------------------------------------------
-
 static void _compute_cross_products(vector p, vector * random_vectors, vector * cross_products)
 {
     int nx = (int) (floor (p.x));
@@ -141,8 +129,6 @@ static void _compute_cross_products(vector p, vector * random_vectors, vector * 
         cross_products[i] = v_cross (random_vectors[i], ap);
     }
 }
-
-//-----------------------------------------------------------
 
 static double my_rand (long int x)
 {
@@ -168,8 +154,6 @@ static vector _compute_random_vector (int nx, int ny, int nz)
     return v_unit (v_rand);
 }
 
-//-----------------------------------------------------------
-
 static void _compute_random_vertex_vectors(vector p, vector * v_rand)
 {
     int nx = (int) (floor (p.x));
@@ -185,8 +169,6 @@ static void _compute_random_vertex_vectors(vector p, vector * v_rand)
     v_rand[PRLN_011] = _compute_random_vector (nx,     ny + 1, nz + 1);
     v_rand[PRLN_111] = _compute_random_vector (nx + 1, ny + 1, nz + 1);
 }
-
-//-----------------------------------------------------------
 
 static double _scalar_noise(vector p, double frequency, double amplitude)
 {
@@ -204,8 +186,6 @@ static double _scalar_noise(vector p, double frequency, double amplitude)
     return noise_value;
 }
 
-//-----------------------------------------------------------
-
 static vector _vector_noise(vector p, double frequency, double amplitude)
 {
     vector random_vectors[8];
@@ -218,8 +198,6 @@ static vector _vector_noise(vector p, double frequency, double amplitude)
     vector noise_vector = _vector_linear_interpolate (lp, cross_products);
     return v_multiply (amplitude, noise_vector);
 }
-
-//-----------------------------------------------------------
 
 // double prln_scalar_noise(vector p, double period, double amplitude, int nb_octaves, double lacunarity, double gain)
 double prln_scalar_noise (vector p)
@@ -243,8 +221,6 @@ double prln_scalar_noise (vector p)
     }
     return noise_value;
 }
-
-//-----------------------------------------------------------
 
 // vector prln_vectornoise(vector p, double period, double amplitude, int nb_octaves, double lacunarity, double gain)
 vector prln_vector_noise (vector p)
