@@ -18,15 +18,37 @@ vector v_new (double x, double y, double z)
     return (vector) { .x = x, .y = y, .z = z };
 }
 
-/* Functionnal programming RPZ !
- * v_map_1 : appliquer "op" ou "f" sur chaque coordonnée du vecteur v.
- * v_map_2 : appliquer "op" ou "f" sur les coordonnées 2 à 2 des vecteurs a et b.
- * v_fold : fold.
+/**
+ * \brief Map.
+ * \param op Opération.
+ * \param v Vecteur.
+ * \sa v_map_1_f
+ * Nécessaire de différencier op et f...pas de fonction anonyme
  */
 #define v_map_1_op(op, v) v_new (v.x op, v.y op, v.z op)
+
+/**
+ * \brief Map.
+ * \param f Fonction.
+ * \param v Vecteur.
+ * \sa v_map_1_op
+ * Nécessaire de différencier op et f...pas de fonction anonyme
+ */
 #define v_map_1_f(f, v) v_new (f (v.x), f (v.y), f (v.z))
+
+/**
+ * \brief Map.
+ * \param op Opération
+ * \param a Vecteur 1.
+ * \param b Vecteur 2.
+ */
 #define v_map_2_op(op, a, b) v_new (a.x op b.x, a.y op b.y, a.z op b.z)
-#define v_map_2_f(f, a, b) v_new (f (a.x, b.x), f (a.y, b.y), f (a.z, b.z))
+
+/**
+ * \brief Fold ou Reduce.
+ * \param op Opération.
+ * \param v Vecteur.
+ */
 #define v_fold_op(op, v) v.x op v.y op v.z
 
 void v_print (vector v, const char * message)

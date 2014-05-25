@@ -45,7 +45,7 @@ typedef struct
 /**
  * \brief Créer un nouveau polygone.
  * \return (pointeur vers) Nouveau polygone.
- * \relates polygon
+ * \relatesalso polygon
  */
 polygon * p_new (void);
 
@@ -59,7 +59,7 @@ void p_init (polygon * const p);
  * \brief Copier un polygone dans un autre.
  * \param[in] original Polygone original.
  * \param[in,out] copy Destination de la copie.
- * \relates polygon
+ * \relatesalso polygon
  * \pre copy a été préalablement alloué.
  */
 void p_copy (const polygon * const original, polygon * const copy);
@@ -68,14 +68,14 @@ void p_copy (const polygon * const original, polygon * const copy);
  * \brief Ajouter, si possible, un sommet au polygone.
  * \param p Polygone.
  * \param v Sommet.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_add_vertex (polygon * const p, point v);
 
 /**
  * \brief Retirer le dernier sommet, s'il y a des sommets.
  * \param p Polygone.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_remove_last_vertex (polygon * const p);
 
@@ -83,7 +83,7 @@ void p_remove_last_vertex (polygon * const p);
  * \brief Afficher un polygone.
  * \param p Polygone.
  * \param message Message.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_print (const polygon * const p, const char * const message);
 
@@ -92,7 +92,7 @@ void p_print (const polygon * const p, const char * const message);
  * \param p Polygone.
  * \param width Largeur.
  * \param height Hauteur.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_draw (const polygon * const p, int width, int height);
 
@@ -109,7 +109,7 @@ void p_close (polygon * const p);
  * \param p Polygone.
  * \retval true si le polygone est fermé.
  * \retval false sinon.
- * \relates polygon
+ * \relatesalso polygon
  */
 bool p_is_closed (const polygon * const p);
 
@@ -118,7 +118,7 @@ bool p_is_closed (const polygon * const p);
  * \param p Polygone.
  * \retval true si le polygone est rempli.
  * \retval false sinon.
- * \relates polygon
+ * \relatesalso polygon
  */
 bool p_is_filled (const polygon * const p);
 
@@ -127,7 +127,7 @@ bool p_is_filled (const polygon * const p);
  * \param p Polygone.
  * \retval true si le polygone est convexe.
  * \retval false sinon.
- * \relates polygon
+ * \relatesalso polygon
  */
 bool p_is_convex (const polygon * const p);
 
@@ -137,7 +137,7 @@ bool p_is_convex (const polygon * const p);
  * \param m Point.
  * \retval true si oui.
  * \retval false sinon.
- * \relates polygon
+ * \relatesalso polygon
  */
 bool p_is_on_the_left_of_all_edges (const polygon * const p, point m);
 
@@ -147,7 +147,7 @@ bool p_is_on_the_left_of_all_edges (const polygon * const p, point m);
  * \param m Origine de la demi-droite.
  * \param u_ray Vecteur directeur de la demi-droite.
  * \return Nombre de côtés intersectés.
- * \relates polygon
+ * \relatesalso polygon
  */
 int p_nb_edges_intersected_by_ray (const polygon * const p, point m, vector u_ray);
 
@@ -157,7 +157,7 @@ int p_nb_edges_intersected_by_ray (const polygon * const p, point m, vector u_ra
  * \param m Point.
  * \retval true si le point est à l'intérieur du polygone.
  * \retval false sinon.
- * \relates polygon
+ * \relatesalso polygon
  */
 bool p_is_inside (const polygon * const p, point m);
 
@@ -165,7 +165,7 @@ bool p_is_inside (const polygon * const p, point m);
  * \brief Faire tourner un polygone autour de l'axe Y.
  * \param p Polygone.
  * \param angle Angle de rotation.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_turn_around_y (polygon * const p, double angle);
 
@@ -173,7 +173,7 @@ void p_turn_around_y (polygon * const p, double angle);
  * \brief Obtenir le centre (la moyenne des positions des sommets) d'un polygone plan.
  * \param p Polygone
  * \return centre.
- * \relates polygon
+ * \relatesalso polygon
  */
 vector p_center (const polygon * const p);
 
@@ -181,7 +181,7 @@ vector p_center (const polygon * const p);
  * \brief Obtenir un vecteur unitaire normal à un polygone plan.
  * \param p Polygone.
  * \return Vecteur unitaire normal au polygone plan.
- * \relates polygon
+ * \relatesalso polygon
  */
 vector p_normal (const polygon * const p);
 
@@ -189,7 +189,7 @@ vector p_normal (const polygon * const p);
  * \brief Mettre à l'échelle un polygone.
  * \param p Polygone.
  * \param factor Facteur de mise à l'échelle.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_scale (polygon * const p, double factor);
 
@@ -197,7 +197,7 @@ void p_scale (polygon * const p, double factor);
  * \brief Translater un polygone.
  * \param p Polygone.
  * \param trans Vecteur de translation.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_translate (polygon * const p, vector trans);
 
@@ -205,7 +205,7 @@ void p_translate (polygon * const p, vector trans);
  * \brief Rotation d'un vecteur autour de son centre afin que son vecteur normal soit égal à \c normal.
  * \param p Polygone.
  * \param normal Vecteur cible.
- * \relates polygon
+ * \relatesalso polygon
  */
 void p_rotate (polygon * const p, vector normal);
 

@@ -13,7 +13,7 @@
  */
 #include "window.h"
 
-void init_shade (void)
+static void init_shade (void)
 {
     GLfloat mat_diffuse[] = {1,1,1,1.0};
     GLfloat mat_ambient[] = {0.1,0.1,0.1,0.0};

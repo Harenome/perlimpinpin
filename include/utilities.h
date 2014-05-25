@@ -11,6 +11,8 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://www.wtfpl.net/ for more details.
  */
+#include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
 
@@ -41,7 +43,7 @@ double d_epsilon (void);
 
 /**
  * \brief Déterminer si un \c double est égal (à l'epsilon près) à 0.
- * \param f \c double à comparer.
+ * \param d \c double à comparer.
  * \retval true si le \c double est égal à 0.
  * \retval false sinon.
  */
@@ -58,7 +60,7 @@ bool d_equals (double a, double b);
 
 /**
  * \brief Obtenir le carré d'un \c double.
- * \param f \c double.
+ * \param d \c double.
  * \return Carré.
  */
 double d_square (double d);
@@ -72,3 +74,9 @@ double d_square (double d);
  * \return Déterminant (\c a * \c j - \c b * \c i).
  */
 double d_det (double a, double b, double i, double j);
+
+/**
+ * \brief Afficher un message, si le mode debug est actif, sur la sortie d'erreur.
+ * \param message Message.
+ */
+void debug (const char * const message);
