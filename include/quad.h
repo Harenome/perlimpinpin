@@ -31,7 +31,7 @@ typedef struct
 
 /**
  * \brief Créer un nouveau quadrilatère.
- * \relates quad
+ * \relatesalso quad
  */
 quad q_new (point a, point b, point c, point d);
 
@@ -39,14 +39,14 @@ quad q_new (point a, point b, point c, point d);
  * \brief Afficher un quadrilatère.
  * \param q Quadrilatère.
  * \param message Message.
- * \relates quad
+ * \relatesalso quad
  */
 void q_print (const quad * const q, const char * const message);
 
 /**
  * \brief Dessiner un quadrilatère.
  * \param q Quadrilatère
- * \relates quad
+ * \relatesalso quad
  */
 void q_draw (const quad * const q);
 

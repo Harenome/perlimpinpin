@@ -13,32 +13,23 @@
  */
 #include "window_callback.h"
 
-#define DIM2 0
-#define DIM3 1
-static int dim = DIM2;
-
-#define _TRANSLATION_STEP 0.05
-#define _ROTATION_STEP 10
-#define _SCALE_STEP 0.1
+static int _dim;
 
 static double _x_translation;
 static double _y_translation;
-
 static double _horizontal_rotation;
 static double _vertical_rotation;
-
 static double _scale;
 
 void callback_init (void)
 {
+    _dim = DIM2;
     _x_translation = 0.0;
     _y_translation = 0.0;
     _horizontal_rotation = 0.0;
     _vertical_rotation = 0.0;
     _scale = 1.0;
 }
-
-#define _go(direction, op, step) _eye.direction op ## = step; _center.direction op ## = step
 
 static inline void _add_to_value (double * const value, double x)
 {
@@ -47,32 +38,32 @@ static inline void _add_to_value (double * const value, double x)
 
 static inline void _angle_increase (double * const value)
 {
-    _add_to_value (value, _ROTATION_STEP);
+    _add_to_value (value, ROTATION_STEP);
 }
 
 static inline void _angle_decrease (double * const value)
 {
-    _add_to_value (value, - _ROTATION_STEP);
+    _add_to_value (value, - ROTATION_STEP);
 }
 
 static inline void _translation_increase (double * const value)
 {
-    _add_to_value (value, _TRANSLATION_STEP);
+    _add_to_value (value, TRANSLATION_STEP);
 }
 
 static inline void _translation_decrease (double * const value)
 {
-    _add_to_value (value, - _TRANSLATION_STEP);
+    _add_to_value (value, - TRANSLATION_STEP);
 }
 
 static inline void _scale_increase (double * const value)
 {
-    _add_to_value (value, _SCALE_STEP);
+    _add_to_value (value, SCALE_STEP);
 }
 
 static inline void _scale_decrease (double * const value)
 {
-    _add_to_value (value, - _SCALE_STEP);
+    _add_to_value (value, - SCALE_STEP);
 }
 
 static void _go_left (void)
@@ -144,7 +135,7 @@ void display (void)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    if (dim == DIM2)
+    if (_dim == DIM2)
         glOrtho (-1,1,-1,1,-1,1);
     else
         gluPerspective (0, (float) WIDTH/HEIGHT, 1, 100);
@@ -201,38 +192,33 @@ void keyboard (unsigned char keycode, int x, int y)
     glutPostRedisplay ();
 }
 
-void _debug (const char * const message)
-{
-    fprintf (stderr, message);
-}
-
 void special (int keycode, int x, int y)
 {
     int mod = glutGetModifiers ();
     switch (keycode)
     {
         case GLUT_KEY_UP:
-            _debug ("Flèche haut\n");
+            debug ("Flèche haut\n");
             _go_up ();
             break;
         case GLUT_KEY_DOWN:
-            _debug ("Flèche bas\n");
+            debug ("Flèche bas\n");
             _go_down ();
             break;
         case GLUT_KEY_LEFT:
-            _debug ("Flèche gauche\n");
+            debug ("Flèche gauche\n");
             _go_left ();
             break;
         case GLUT_KEY_RIGHT:
-            _debug ("Flèche droite\n");
+            debug ("Flèche droite\n");
             _go_right ();
             break;
         case GLUT_KEY_PAGE_UP:
-            _debug ("Flèche avant\n");
+            debug ("Flèche avant\n");
             _zoom_in ();
             break;
         case GLUT_KEY_PAGE_DOWN :
-            _debug ("Flèche arriere\n");
+            debug ("Flèche arriere\n");
             _zoom_out ();
             break;
         default :

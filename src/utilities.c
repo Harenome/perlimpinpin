@@ -53,3 +53,10 @@ double d_det (double a, double b, double i, double j)
      */
     return a * j - b * i;
 }
+
+void debug (const char * const message)
+{
+    #ifdef __ENABLE_DEBUG
+        fprintf (stderr, message);
+    #endif
+}

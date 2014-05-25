@@ -45,13 +45,14 @@ typedef struct
 
 /**
  * \brief Créer un nouveau maillage.
- * \relates mesh
+ * \relatesalso mesh
  */
 mesh * m_new (void);
 
 /**
  * \brief Initialiser un maillage.
  * \param m Maillage.
+ * \relatesalso mesh
  */
 void m_init (mesh * const m);
 
@@ -59,7 +60,7 @@ void m_init (mesh * const m);
  * \brief Afficher un maillage.
  * \param m Maillage.
  * \param message Message.
- * \relates mesh
+ * \relatesalso mesh
  */
 void m_print (const mesh * const m, const char * const message);
 
@@ -67,7 +68,7 @@ void m_print (const mesh * const m, const char * const message);
  * \brief Ajouter un quadrilatère.
  * \param m Maillage.
  * \param q Quadrilatère.
- * \relates mesh
+ * \relatesalso mesh
  */
 void m_add_quad (mesh * const m, quad q);
 
@@ -76,7 +77,7 @@ void m_add_quad (mesh * const m, quad q);
  * \param m Maillage.
  * \param p1 Polygone.
  * \param p2 Polygone.
- * \relates mesh
+ * \relatesalso mesh
  * \pre p1->_nb_vertices == p2->_nb_vertices
  */
 void m_add_slice (mesh * const m, const polygon * const p1, const polygon * const p2);
@@ -86,7 +87,7 @@ void m_add_slice (mesh * const m, const polygon * const p1, const polygon * cons
  * \param m Maillage.
  * \param p1 Polygone.
  * \param nb_slices Nombre de coupes.
- * \relates mesh
+ * \relatesalso mesh
  */
 void m_revolution (mesh * const m, const polygon * const p1, int nb_slices);
 
@@ -95,14 +96,14 @@ void m_revolution (mesh * const m, const polygon * const p1, int nb_slices);
  * \param m Maillage.
  * \param p Polygone.
  * \param nb_slices Nombre de coupes.
- * \relates mesh
+ * \relatesalso mesh
  */
 void m_perlin_extrude (mesh * const m, const polygon * const p, int nb_slices);
 
 /**
  * \brief Dessiner un maillage.
  * \param m Maillage.
- * \relates mesh
+ * \relatesalso mesh
  */
 void m_draw (const mesh * const m);
 

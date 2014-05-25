@@ -19,19 +19,52 @@
 #include "polygon.h"
 #include "mesh.h"
 
+/**
+ * \brief Largeur de la fenêtre.
+ */
 static const int WIDTH = 650;
+
+/**
+ * \↓rief Hauteur de la fenêtre.
+ */
 static const int HEIGHT = 650;
 
+/**
+ * \brief Light.
+ */
 static GLfloat p_light[4];
 
+/**
+ * \brief Initialiser le nécessaire.
+ */
 void window_common_init (void);
 
+/**
+ * \brief Déterminer si l'extrusion a déjà eu lieu.
+ * \retval true si l'extrusion a déjà été faite.
+ * \retval false sinon.
+ */
 bool is_extruded (void);
 
+/**
+ * \brief Ajouter un point au polygone commun.
+ * \param v Point.
+ */
 void common_polygon_add_vertex (point v);
+
+/**
+ * \brief Extruder le polygone commun.
+ */
 void common_mesh_perlin_extrude (void);
 
+/**
+ * \brief Dessiner le polygone commun.
+ */
 void draw_common_polygon (void);
+
+/**
+ * \brief Dessiner le maillage commun.
+ */
 void draw_common_mesh (void);
 
 #endif /* _WINDOW_COMMON_H_ */

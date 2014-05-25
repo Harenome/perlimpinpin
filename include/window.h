@@ -27,6 +27,11 @@
 #include "window_common.h"
 #include "window_callback.h"
 
+/**
+ * \brief Initialiser la fenêtre.
+ * \param argc Nombre d'arguments de la ligne de commande.
+ * \param argv Arguments de la ligne de commande.
+ */
 void window_init (int argc, char ** argv);
 
 #endif /* _WINDOW_H_ */
