@@ -25,14 +25,9 @@
 static const int WIDTH = 650;
 
 /**
- * \↓rief Hauteur de la fenêtre.
+ * \brief Hauteur de la fenêtre.
  */
 static const int HEIGHT = 650;
-
-/**
- * \brief Light.
- */
-static GLfloat p_light[4];
 
 /**
  * \brief Initialiser le nécessaire.

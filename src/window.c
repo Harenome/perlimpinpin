@@ -13,24 +13,6 @@
  */
 #include "window.h"
 
-static void init_shade (void)
-{
-    GLfloat mat_diffuse[] = {1,1,1,1.0};
-    GLfloat mat_ambient[] = {0.1,0.1,0.1,0.0};
-
-    glClearColor (0.0, 0.0, 0.0, 0.0);
-    glShadeModel (GL_SMOOTH);
-    glMaterialfv (GL_FRONT, GL_DIFFUSE, mat_diffuse);
-
-    glLightfv (GL_LIGHT0, GL_DIFFUSE, mat_diffuse);
-    glLightfv (GL_LIGHT0, GL_AMBIENT, mat_ambient);
-    glLightfv (GL_LIGHT0, GL_POSITION, p_light);
-
-    glEnable (GL_LIGHTING);
-    glEnable (GL_LIGHT0);
-    glEnable (GL_DEPTH_TEST);
-}
-
 void window_init (int argc, char ** argv)
 {
     window_common_init ();
@@ -49,11 +31,4 @@ void window_init (int argc, char ** argv)
     glutSpecialFunc (special);
     glutMouseFunc (mouse);
     glutIdleFunc (idle);
-
-    p_light[0] = -10.0;
-    p_light[1] = 20.0;
-    p_light[2] = 0.0;
-    p_light[3] = 1.0;
-
-    /* p_aim = v_new (0,0,-2.75); */
 }

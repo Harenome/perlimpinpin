@@ -15,6 +15,7 @@
 
 static int _dim;
 
+static bool _lighting;
 static double _x_translation;
 static double _y_translation;
 static double _horizontal_rotation;
@@ -24,6 +25,7 @@ static double _scale;
 void callback_init (void)
 {
     _dim = DIM2;
+    _lighting = false;
     _x_translation = 0.0;
     _y_translation = 0.0;
     _horizontal_rotation = 0.0;
@@ -126,6 +128,44 @@ static void _zoom_out (void)
         _scale_decrease (& _scale);
 }
 
+static void _init_shade (void)
+{
+    GLfloat mat_diffuse[] = {1, 1, 1, 1.0};
+    GLfloat mat_ambient[] = {0.1, 0.1, 0.1, 0.0};
+    GLfloat light_0[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_1[] = { 0.0, 0.0, -1.0, 0.0 };
+
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glShadeModel (GL_SMOOTH);
+    glMaterialfv (GL_FRONT, GL_DIFFUSE, mat_diffuse);
+
+    glLightfv (GL_LIGHT0, GL_DIFFUSE, mat_diffuse);
+    glLightfv (GL_LIGHT0, GL_AMBIENT, mat_ambient);
+    glLightfv (GL_LIGHT0, GL_POSITION, light_0);
+
+    glLightfv (GL_LIGHT1, GL_DIFFUSE, mat_diffuse);
+    glLightfv (GL_LIGHT1, GL_AMBIENT, mat_ambient);
+    glLightfv (GL_LIGHT1, GL_POSITION, light_1);
+
+    glEnable (GL_LIGHTING);
+    glEnable (GL_LIGHT0);
+    glEnable (GL_LIGHT1);
+    glEnable (GL_DEPTH_TEST);
+}
+
+static void _switch_lighting (void)
+{
+    if (is_extruded ())
+    {
+        if (_lighting)
+            glDisable (GL_LIGHTING);
+        else
+            _init_shade ();
+
+        _lighting = ! _lighting;
+    }
+}
+
 void display (void)
 {
     glEnable (GL_DEPTH_TEST);
@@ -178,6 +218,10 @@ void keyboard (unsigned char keycode, int x, int y)
         case 'p':
             common_mesh_perlin_extrude ();
             break;
+        case 32:
+            /* SPACE */
+            _switch_lighting ();
+            break;
         case 27:
             /* ECHAPH */
             exit (0);
@@ -194,7 +238,6 @@ void keyboard (unsigned char keycode, int x, int y)
 
 void special (int keycode, int x, int y)
 {
-    int mod = glutGetModifiers ();
     switch (keycode)
     {
         case GLUT_KEY_UP:
@@ -227,8 +270,6 @@ void special (int keycode, int x, int y)
             #endif
             break;
     }
-    if (mod == GLUT_ACTIVE_CTRL)
-        glLightfv (GL_LIGHT0, GL_POSITION, p_light);
 }
 
 static inline double _mouse_to_double (int v, int v_max)
