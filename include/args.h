@@ -20,8 +20,8 @@
 #include <stdbool.h>
 #include <sysexits.h>
 
-static const int VERSION_MAJOR = 0;
-static const int VERSION_MINOR = 3;
+static const int VERSION_MAJOR = 1;
+static const int VERSION_MINOR = 0;
 static const int VERSION_PATCH = 0;
 
 /**
